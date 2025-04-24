@@ -1,0 +1,92 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ProfessionalsWebApplication.Models;
+using ProfessionalsWebApplication.Services;
+
+namespace ProfessionalsWebApplication.Controllers
+{
+	[Route("api/QuestionModels")]
+	[ApiController]
+	public class QuestionModelController : Controller
+	{
+		private readonly ProfessionalsDbContext _context;
+		public QuestionModelController(ProfessionalsDbContext context)
+		{
+			_context = context;
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> GetQuestions()
+		{
+			var questions = await _context.Questions.ToListAsync();
+			return Ok(questions);
+		}
+
+		[HttpGet("{id}")]
+		public async Task<IActionResult> GetQuestion(int id)
+		{
+			var question = await _context.Questions.FindAsync(id);
+			if (question == null) return NotFound("Такой вопрос не найдена.");
+			return Ok(question);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> CreateForm([FromBody] QuestionModel questionModel)
+		{
+			if (!ModelState.IsValid) return BadRequest(ModelState);
+
+			_context.Questions.Add(questionModel);
+			await _context.SaveChangesAsync();
+
+			//var location = Url.Link(nameof(GetForm), new { id = formModel.Id });
+
+			//return Created(location, formModel);
+
+			return CreatedAtAction(nameof(GetQuestion), new { id = questionModel.Id }, questionModel);
+		}
+
+		[HttpPut("{id}")]
+		public async Task<IActionResult> UpdateQuestion(int id, [FromBody] QuestionModel questionModel)
+		{
+			if (id != questionModel.Id)
+			{
+				return BadRequest("Такого вопроса не существует.");
+			}
+			var existingQuestion = await _context.Questions.FindAsync(id);
+			if (existingQuestion == null)
+			{
+				return NotFound("Такой вопрос не найден.");
+			}
+			existingQuestion.Text = questionModel.Text;
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				if (!_context.Questions.Any(e => e.Id == id))
+				{
+					return NotFound("Такой вопрос не найден");
+				}
+				else
+				{
+					return Conflict("Конфликт обновления данных. Вопрос уже существует.");
+				}
+			}
+			return Ok();
+		}
+
+		[HttpDelete("{id}")]
+		public async Task<IActionResult> DeleteQuestion(int id)
+		{
+			var questionModel = await _context.Questions.FindAsync(id);
+			if (questionModel == null)
+			{
+				return NotFound();
+			}
+			_context.Questions.Remove(questionModel);
+			await _context.SaveChangesAsync();
+			return Ok();
+		}
+	}
+}

@@ -1,0 +1,133 @@
+﻿@using ProfessionalsWebApplication.Models
+@model FormModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<h2>@Model.Name</h2>
+
+<form method="post" enctype="multipart/form-data" id="form">
+    @foreach (var question in Model.Questions)
+    {
+        <div class="form-group">
+            <label for="question-@question.Id">@question.DisplayText</label>
+
+            @if (question.Type == "Text")
+            {
+                <input type="text" class="form-control" name="@question.DisplayText" id="question-@question.Id" @(question.IsRequired ? "required" : "") />
+            }
+            else if (question.Type == "Button" && question.Options != null && question.IsDropDown == false)
+            {
+                <div class="toggle-buttons">
+                    @foreach (var option in question.Options)
+                    {
+                        <input type="radio" name="@question.DisplayText" value="@option" id="option-@question.Id-@option" @(question.IsRequired ? "required" : "") />
+                        <label class="toggle-button" for="option-@question.Id-@option">@option</label>
+                    }
+                </div>
+            }
+            else if (question.Type == "Button" && question.Options != null && question.IsDropDown == true)
+            {
+                <select class="form-control" name="@question.DisplayText" id="question-@question.Id" @(question.IsRequired ? "required" : "")>
+                    <option value="" disabled selected>Выберите вариант</option>
+                    @foreach (var option in question.Options)
+                    {
+                        <option value="@option">@option</option>
+                    }
+                </select>
+            }
+            else if (question.Type == "File")
+            {
+                <input type="file" class="form-control" name="@question.DisplayText" id="question-@question.Id" accept="image/*,.pdf,.doc,.docx" @(question.IsRequired ? "required" : "") />
+            }
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
+
+<script>
+    document.getElementById('form').onsubmit = function(event) {
+        event.preventDefault();
+
+        let formData = new FormData(document.getElementById('form'));
+        let data = {
+            FormName: '@Model.Id',
+            Answers: {},
+        };
+
+        let filePromises = [];
+
+        formData.forEach((value, key) => {
+            if (value instanceof File) {
+                let reader = new FileReader();
+                let filePromise = new Promise((resolve, reject) => {
+                    reader.onloadend = function() {
+                        data.Answers[key] = {
+                            FileName: value.name,
+                            FileSize: value.size,
+                            FileContent: reader.result.split(',')[1],
+                        };
+                        resolve();
+                    };
+                    reader.onerror = function() {
+                        reject('Ошибка при чтении файла');
+                    };
+                    reader.readAsDataURL(value);
+                });
+
+                filePromises.push(filePromise);
+            } else {
+                data.Answers[key] = value;
+            }
+        });
+
+        Promise.all(filePromises)
+            .then(() => {
+                submitFormData(data);
+            })
+            .catch(error => {
+                alert("Ошибка при обработке файлов: " + error);
+            });
+    };
+
+    function submitFormData(data) {
+        fetch('/forms/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => alert("Форма отправлена успешно!"))
+            .catch(error => alert("Ошибка при отправке формы"));
+    }
+</script>
+
+
+<style>
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .toggle-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .toggle-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    input[type="radio"]:checked + .toggle-button {
+        background-color: #007bff;
+        color: white;
+    }
+</style>
