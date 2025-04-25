@@ -39,16 +39,20 @@ namespace ProfessionalsWebApplication.Controllers
 
 			Console.WriteLine(serializedData);
 
-			//HttpContext.Session.SetString("FormSubmitted", "true");
+			HttpContext.Session.SetString("FormSubmitted", "true");
 
-			return RedirectToAction("thank-you", "forms");
+			return Json(new { redirectUrl = Url.Action("thank-you", "forms") });
 		}
 
 		[HttpGet("thank-you")]
 		public IActionResult ThankYou()
 		{
-			//HttpContext.Session.Remove("FormSubmitted");
-			return View("ThankYouView");
+			var isSubmitted = HttpContext.Session.GetString("FormSubmitted");
+			HttpContext.Session.Remove("FormSubmitted");
+			if (isSubmitted == "true")
+				return View("ThankYouView");
+			else
+				return View("NotFoundView");
 		}
 
 

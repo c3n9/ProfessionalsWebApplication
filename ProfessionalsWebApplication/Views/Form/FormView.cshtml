@@ -92,17 +92,25 @@
             });
     };
 
-    function submitFormData(data) {
-           fetch(response.url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
+       function submitFormData(data) {
+        fetch('/forms/submit', { // Убедись, что путь правильный
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
         .then(response => response.json())
-        .catch(error => { console.error('Произошла ошибка:', error); });
+        .then(result => {
+            if (result.redirectUrl) {
+                window.location.href = result.redirectUrl;
+            }
+        })
+        .catch(error => {
+            console.error('Произошла ошибка:', error);
+        });
     }
+
 </script>
 
 
