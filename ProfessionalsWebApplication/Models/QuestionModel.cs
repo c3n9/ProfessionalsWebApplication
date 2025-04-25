@@ -10,7 +10,8 @@ namespace ProfessionalsWebApplication.Models
         public string Text { get; set; } = string.Empty;
         public bool IsRequired { get; set; } = false;
         public bool IsDropDown {get;set;} = false;
-        public string DisplayText { get; set; } = string.Empty;
+        public string Note { get; set; } = string.Empty;
+		public string DisplayText { get; set; } = string.Empty;
         public List<string>? Options { get; set; }
     }
 }
