@@ -1,16 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProfessionalsWebApplication.Models;
-using ProfessionalsWebApplication.Services;
 
 namespace ProfessionalsWebApplication.Controllers
 {
 	[Route("api/QuestionModels")]
 	[ApiController]
-	public class QuestionModelController : Controller
+	public class QuestionModelsController : Controller
 	{
 		private readonly ProfessionalsDbContext _context;
-		public QuestionModelController(ProfessionalsDbContext context)
+		public QuestionModelsController(ProfessionalsDbContext context)
 		{
 			_context = context;
 		}

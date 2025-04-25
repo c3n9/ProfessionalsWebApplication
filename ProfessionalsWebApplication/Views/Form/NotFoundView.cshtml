@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "404 Not Found";
+}
+
+<div class="error-container">
+    <div class="error-content">
+        <div class="error-graphic">
+            <svg class="floating" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="100" r="80" fill="none" stroke="#ff6b6b" stroke-width="8" />
+                <path d="M60,60 L140,140 M60,140 L140,60" stroke="#ff6b6b" stroke-width="8" />
+            </svg>
+        </div>
+        <h1 class="error-title">404</h1>
+        <h2 class="error-subtitle">Страница не найдена</h2>
+        <p class="error-text">
+            Ой! Кажется мы потеряли эту страницу в космическом пространстве...
+        </p>
+    </div>
+</div>
+
+<style>
+    .error-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 2rem;
+    }
+
+    .error-content {
+        text-align: center;
+        max-width: 600px;
+        padding: 2rem;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .error-graphic {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto 2rem;
+    }
+
+    .error-title {
+        font-size: 5rem;
+        color: #2d3436;
+        margin-bottom: 1rem;
+    }
+
+    .error-subtitle {
+        color: #ff6b6b;
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+    }
+
+    .error-text {
+        color: #636e72;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .home-button {
+        display: inline-block;
+        padding: 12px 30px;
+        background: #4a90e2;
+        color: white !important;
+        text-decoration: none;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+        .home-button:hover {
+            background: #357abd;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+    @@keyframes float {
+        0% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-20px);
+        }
+
+        100% {
+            transform: translateY(0px);
+        }
+    }
+
+    .floating {
+        animation: float 3s ease-in-out infinite;
+    }
+</style>

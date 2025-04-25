@@ -16,8 +16,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddSession(); 
+
 var app = builder.Build();
 
+app.UseSession();
 // ¬ключаем Swagger только в режиме разработки
 if (app.Environment.IsDevelopment())
 {

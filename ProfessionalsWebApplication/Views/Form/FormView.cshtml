@@ -93,16 +93,15 @@
     };
 
     function submitFormData(data) {
-        fetch('/forms/submit', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => response.json())
-            .then(data => alert("Форма отправлена успешно!"))
-            .catch(error => alert("Ошибка при отправке формы"));
+           fetch(response.url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .catch(error => { console.error('Произошла ошибка:', error); });
     }
 </script>
 
