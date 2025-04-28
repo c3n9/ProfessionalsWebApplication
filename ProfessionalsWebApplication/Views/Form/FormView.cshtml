@@ -55,27 +55,8 @@
 		}
 		else if (question.Type == "File")
 		{
-			<div class="file-upload">
-				<label for="question-@question.Id">@question.Text</label>
-				<label for="file-upload" class="upload-area">
-					<div class="upload-icon">
-						<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M25 31.125V4.58331M25 4.58331L31.125 11.7291M25 4.58331L18.875 11.7291" stroke="#1C5493" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-							<path d="M16.834 45.4167H33.1673C38.9411 45.4167 41.8301 45.4167 43.6227 43.6241C45.4173 41.8274 45.4173 38.9425 45.4173 33.1667V31.125C45.4173 25.3512 45.4173 22.4643 43.6227 20.6696C42.0547 19.1016 39.6496 18.9036 35.209 18.8791M14.7923 18.8791C10.3517 18.9036 7.94661 19.1016 6.37861 20.6696C4.58398 22.4643 4.58398 25.3512 4.58398 31.125V33.1667C4.58398 38.9425 4.58398 41.8295 6.37861 43.6241C6.99111 44.2366 7.73019 44.6388 8.66732 44.9042" stroke="#1C5493" stroke-width="3" stroke-linecap="round" />
-						</svg>
-					</div>
-					<div class="upload-text">Перетащите файлы или нажмите для выбора</div>
-					@* <div class="format-hint">Формат PDF</div> *@
-					<input type="file" id="file-upload" class="file-input" accept=".pdf, .doc, .docx, image/*" @(question.IsRequired ? "required" : "")>
-				</label>
-
-				<div class="uploaded-files">
-					<div class="uploaded-files-title">Загруженные файлы</div>
-					<div id="file-list">
-					</div>
-				</div>
-			</div>
-
+			<label for="question-@question.Id">@question.Text</label>
+			<input type="file" class="form-control" name="@question.DisplayText" id="question-@question.Id" accept="image/*,.pdf,.doc,.docx" @(question.IsRequired ? "required" : "") />
 		}
 	}
 
@@ -161,72 +142,6 @@
 		// Инициализация при загрузке
 		if (select.value) {
 			select.nextElementSibling.style.color = '#1C5493';
-		}
-	});
-
-	document.addEventListener('DOMContentLoaded', function() {
-		const fileUpload = document.getElementById('file-upload');
-		const fileList = document.getElementById('file-list');
-
-		fileUpload.addEventListener('change', function(e) {
-			// Очищаем список перед добавлением новых файлов (если не нужно сохранять предыдущие)
-			// fileList.innerHTML = '';
-
-			// Добавляем каждый выбранный файл в список
-			for (let i = 0; i < this.files.length; i++) {
-				addFileToList(this.files[i]);
-			}
-		});
-
-		// Обработка перетаскивания файлов
-		const uploadArea = document.querySelector('.upload-area');
-
-		uploadArea.addEventListener('dragover', function(e) {
-			e.preventDefault();
-			this.classList.add('dragover');
-		});
-
-		uploadArea.addEventListener('dragleave', function(e) {
-			e.preventDefault();
-			this.classList.remove('dragover');
-		});
-
-		uploadArea.addEventListener('drop', function(e) {
-			e.preventDefault();
-			this.classList.remove('dragover');
-
-			const files = e.dataTransfer.files;
-			fileUpload.files = files; // Обновляем input files
-
-			// Очищаем список перед добавлением новых файлов (если не нужно сохранять предыдущие)
-			// fileList.innerHTML = '';
-
-			// Добавляем каждый файл в список
-			for (let i = 0; i < files.length; i++) {
-				addFileToList(files[i]);
-			}
-		});
-
-		function addFileToList(file) {
-			const fileItem = document.createElement('div');
-			fileItem.className = 'file-item';
-
-			fileItem.innerHTML = `
-			<div> <span class="file-icon">📄</span>
-				<span class="file-name">${file.name}</span>
-				</div>
-
-				<button class="remove-file" title="Удалить">×</button>
-			`;
-
-			fileList.appendChild(fileItem);
-
-			// Добавляем обработчик удаления файла
-			const removeBtn = fileItem.querySelector('.remove-file');
-			removeBtn.addEventListener('click', function() {
-				fileItem.remove();
-				// Здесь можно добавить логику для удаления файла из input.files
-			});
 		}
 	});
 
