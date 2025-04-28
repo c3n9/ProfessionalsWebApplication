@@ -66,7 +66,7 @@
 					</div>
 					<div class="upload-text">Перетащите файлы или нажмите для выбора</div>
 					@* <div class="format-hint">Формат PDF</div> *@
-					<input type="file" id="question-@question.Id" class="file-input" accept=".pdf, .doc, .docx, image/*" @(question.IsRequired ? "required" : "")>
+					<input type="file" id="file-upload" class="file-input" accept=".pdf, .doc, .docx, image/*" @(question.IsRequired ? "required" : "")>
 				</label>
 
 				<div class="uploaded-files">
