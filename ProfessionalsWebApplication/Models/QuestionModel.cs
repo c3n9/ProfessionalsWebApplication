@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ProfessionalsWebApplication.Models
 {
@@ -20,5 +22,11 @@ namespace ProfessionalsWebApplication.Models
         [MaxLength(300)]
 		public string DisplayText { get; set; } = string.Empty;
 		public List<string>? Options { get; set; }
-    }
+
+		[ForeignKey(nameof(FormModel))]  
+		public int ThemeId { get; set; }
+
+		[JsonIgnore]
+		public FormModel? FormModel { get; set; }
+	}
 }

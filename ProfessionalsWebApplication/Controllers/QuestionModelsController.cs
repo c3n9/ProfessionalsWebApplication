@@ -30,16 +30,15 @@ namespace ProfessionalsWebApplication.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> CreateForm([FromBody] QuestionModel questionModel)
+		public async Task<IActionResult> CreateQuestion([FromBody] QuestionModel questionModel)
 		{
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
+			if(_context.Questions.Any(x => x.DisplayText == questionModel.DisplayText || x.Text == questionModel.Text))
+				return BadRequest("С таким названием или кратким названием уже существует.");
+
 			_context.Questions.Add(questionModel);
 			await _context.SaveChangesAsync();
-
-			//var location = Url.Link(nameof(GetForm), new { id = formModel.Id });
-
-			//return Created(location, formModel);
 
 			return CreatedAtAction(nameof(GetQuestion), new { id = questionModel.Id }, questionModel);
 		}

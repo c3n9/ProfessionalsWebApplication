@@ -60,7 +60,7 @@
 		}
 	}
 
-	<button type="submit" class="btn btn-primary">Отправить</button>
+	<button type="submit" class="ripple-button">Отправить</button>
 </form>
 
 <script>
@@ -126,23 +126,5 @@
 			console.error('Произошла ошибка:', error);
 		});
 	}
-
-		document.querySelectorAll('.select-container select').forEach(select => {
-		// Обновление лейбла при изменении
-		select.addEventListener('change', function() {
-			this.setCustomValidity('');
-			const label = this.nextElementSibling;
-			if (this.value) {
-				label.style.color = '#1C5493';
-			} else {
-				label.style.color = '#929292';
-			}
-		});
-
-		// Инициализация при загрузке
-		if (select.value) {
-			select.nextElementSibling.style.color = '#1C5493';
-		}
-	});
 
 </script>

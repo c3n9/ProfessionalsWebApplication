@@ -22,7 +22,7 @@ namespace ProfessionalsWebApplication.Controllers
 		[HttpGet]
 		public async Task<IActionResult> GetForms()
 		{
-			var forms = await _context.Forms.ToListAsync();
+			var forms = await _context.Forms.Include(f => f.Questions).ToListAsync();
 			return Ok(forms);
 		}
 

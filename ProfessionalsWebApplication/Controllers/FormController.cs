@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProfessionalsWebApplication.Models;
 using ProfessionalsWebApplication.Services;
 using System.Text.Encodings.Web;
@@ -10,12 +11,18 @@ namespace ProfessionalsWebApplication.Controllers
 	[ApiController]
 	public class FormController : Controller
 	{
+		private readonly ProfessionalsDbContext _context;
+
+		public FormController(ProfessionalsDbContext context)
+		{
+			_context = context;
+		}
+
 		[HttpGet("{hash}")]
 		public IActionResult GetForm(string hash)
 		{
 			// Заглушка для данных формы (обычно загружается из БД)
-			var formDataJson = System.IO.File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "questions.json"));
-			var form = (JsonSerializer.Deserialize<List<FormModel>>(formDataJson)).FirstOrDefault(x => x.Hash == hash);
+			var form = _context.Forms.Include(f => f.Questions).FirstOrDefault(x => x.Hash == hash);
 			if (form == null)
 			{
 				Response.StatusCode = 404;

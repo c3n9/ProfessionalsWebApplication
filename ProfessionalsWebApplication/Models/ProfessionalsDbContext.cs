@@ -13,5 +13,16 @@ namespace ProfessionalsWebApplication.Models
 		public DbSet<QuestionModel> Questions { get; set; }
 
 		public DbSet<User> Users {  get; set; }
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<QuestionModel>()
+				.HasOne(q => q.FormModel)
+				.WithMany(f => f.Questions)
+				.HasForeignKey(q => q.ThemeId)
+				.OnDelete(DeleteBehavior.Cascade);
+
+			base.OnModelCreating(modelBuilder);
+		}
 	}
 }
