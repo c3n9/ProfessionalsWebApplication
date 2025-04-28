@@ -2,7 +2,8 @@
     {
         "Id": 1,
         "Hash": "TqWcSXSQ_QO3VfMxUEQi1FwmnCKDhMGW-oXMv1fFHCM",
-        "Name": "Заявка на участие в региональном чемпионате по профессиональному мастерству «Профессионалы» 2025",
+        "Name": "Основа",
+        "IsVisible": true,
         "Questions": [
             {
                 "Id": 1,
@@ -63,49 +64,50 @@
             }
         ]
     },
-  {
-    "Id": 2,
-    "Hash": "w6J_a38qkL7jAYmRWbjxgdz9AjkTZqZ9x-kxtA-Lm8Y",
-    "Name": "Юниоры",
-    "Questions": [
-      {
-        "Id": 6,
-        "Type": "Text",
-        "Text": "Введите ваше ФИО:",
-        "DisplayText": "ФИО",
-        "ThemeId": 2,
-        "IsDropDown": false,
-        "IsRequired": true
-      },
-      {
-        "Id": 7,
-        "Type": "Text",
-        "Text": "Введите ваш пол:",
-        "DisplayText": "Пол",
-        "ThemeId": 2,
-        "IsDropDown": false,
-        "IsRequired": true
-      },
-      {
-        "Id": 8,
-        "Type": "Button",
-        "Text": "Выберите группу:",
-        "DisplayText": "Группа",
-        "Options": [ "Группа A", "Группа B" ],
-        "ThemeId": 2,
-        "IsDropDown": false,
-        "IsRequired": true
-      },
-      {
-        "Id": 9,
-        "Type": "Button",
-        "Text": "Выберите компетенцию:",
-        "DisplayText": "Компетенция",
-        "Options": [ "Компетенция A", "Компетенция B" ],
-        "ThemeId": 2,
-        "IsDropDown": false,
-        "IsRequired": true
-      }
-    ]
-  }
+    {
+        "Id": 2,
+        "Hash": "w6J_a38qkL7jAYmRWbjxgdz9AjkTZqZ9x-kxtA-Lm8Y",
+        "Name": "Юниоры",
+        "IsVisible": true,
+        "Questions": [
+            {
+                "Id": 6,
+                "Type": "Text",
+                "Text": "Введите ваше ФИО:",
+                "DisplayText": "ФИО",
+                "ThemeId": 2,
+                "IsDropDown": false,
+                "IsRequired": true
+            },
+            {
+                "Id": 7,
+                "Type": "Text",
+                "Text": "Введите ваш пол:",
+                "DisplayText": "Пол",
+                "ThemeId": 2,
+                "IsDropDown": false,
+                "IsRequired": true
+            },
+            {
+                "Id": 8,
+                "Type": "Button",
+                "Text": "Выберите группу:",
+                "DisplayText": "Группа",
+                "Options": [ "Группа A", "Группа B" ],
+                "ThemeId": 2,
+                "IsDropDown": false,
+                "IsRequired": true
+            },
+            {
+                "Id": 9,
+                "Type": "Button",
+                "Text": "Выберите компетенцию:",
+                "DisplayText": "Компетенция",
+                "Options": [ "Компетенция A", "Компетенция B" ],
+                "ThemeId": 2,
+                "IsDropDown": false,
+                "IsRequired": true
+            }
+        ]
+    }
 ]
