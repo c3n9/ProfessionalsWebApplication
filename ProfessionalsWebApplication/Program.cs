@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using ProfessionalsWebApplication.Models;
 using System;
 
@@ -19,6 +20,17 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSession(); 
 
 var app = builder.Build();
+
+app.UseStaticFiles(); // Для обслуживания файлов из wwwroot по умолчанию
+
+// Для обслуживания файлов из другой папки (например, Styles)
+app.UseStaticFiles(new StaticFileOptions
+{
+	FileProvider = new PhysicalFileProvider(
+		Path.Combine(Directory.GetCurrentDirectory(), "Styles")),
+	RequestPath = "/styles" // Этот путь будет использоваться для доступа к файлам
+});
+
 
 app.UseSession();
 // Включаем Swagger только в режиме разработки

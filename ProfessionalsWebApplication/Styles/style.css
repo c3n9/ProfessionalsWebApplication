@@ -1,0 +1,416 @@
+* {
+    font-family: 'Montserrat';
+    box-sizing: border-box;
+}
+h2{
+    color: #1C5493;
+    text-align: center;
+}
+h1{
+    font-size: 100px;
+    color: #1C5493;
+    text-align: center;
+}
+.h{
+    height: 95vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.w{
+    width: 1015px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 80px;
+    border-radius: 30px;
+    padding-top: 30px;
+
+}
+body{
+    background-color: #F6F6F6;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 24px;
+}
+.note{
+    font-size: 15px;
+    transform: translateY(-10px);
+    color: #929292;
+}
+.form-control {
+    border-radius: 4px;
+    background: transparent;
+    color: #929292;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s;
+    border: 1px solid #bebebe;
+    border-radius: 15px;
+    padding: 17px 12px;
+    
+    width: 100%;
+    
+}
+
+/* Активное состояние (фокус или ввод текста) */
+.form-control:focus,
+.form-control:not(:placeholder-shown) {
+    border-color: #1C5493;
+    color: #1C5493;
+}
+
+/* Плавающий лейбл */
+.floating-label {
+    position: absolute;
+    top: 17px;
+    left: 12px;
+    color: #929292;
+    font-size: 16px;
+    transition: all 0.3s;
+    pointer-events: none;
+}
+
+.form-control:focus+.floating-label,
+.form-control:not(:placeholder-shown)+.floating-label {
+    top: -10px;
+    left: 8px;
+    font-size: 12px;
+    background: white;
+    padding: 0 5px;
+    color: #1C5493;
+}
+
+/* Ошибка валидации */
+.form-control:invalid {
+    border-color: #BD3838;
+    color: #BD3838;
+}
+
+.form-control:invalid+.floating-label {
+    color: #BD3838;
+}
+
+.error-message {
+    display: none;
+    color: #BD3838;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.form-control:invalid~.error-message {
+    display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.custom-select-container {
+    position: relative;
+    margin: 24px 0;
+    width: 100%;
+}
+
+.custom-select {
+    width: 100%;
+    border: 1px solid #bebebe;
+    border-radius: 15px;
+    padding: 17px 12px;
+    background-color: white;
+    color: #333;
+    font-size: 16px;
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    
+}
+
+.select-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #929292;
+    font-size: 16px;
+    pointer-events: none;
+    transition: all 0.3s;
+    background: white;
+    padding: 0 4px;
+}
+
+.custom-select:focus+.select-placeholder,
+.custom-select:valid+.select-placeholder {
+    top: 0;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: #1C5493;
+}
+
+.custom-select:focus {
+    border-color: #1C5493;
+}
+
+.select-arrow {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    color: #929292;
+    pointer-events: none;
+    font-size: 12px;
+    transition: all 0.3s;
+}
+
+.custom-select:focus~.select-arrow {
+    color: #1C5493;
+}
+
+/* Стилизация выпадающего списка */
+.custom-select option {
+    padding: 20px !important;
+    /* Большие отступы */
+    font-size: 16px;
+    transition: all 0.2s;
+}
+
+.custom-select option:hover {
+    background-color: #F4F4F4 !important;
+    color: #1C5493 !important;
+}
+
+.custom-select option:checked {
+    background-color: #F4F4F4;
+    color: #1C5493;
+}
+
+/* Для Firefox */
+@-moz-document url-prefix() {
+    .custom-select {
+        padding-right: 30px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23929292' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+    }
+
+    .select-arrow {
+        display: none;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.toggle-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 10px 0;
+    font-family: Arial, sans-serif;
+}
+
+.toggle-button {
+    position: relative;
+    display: inline-block;
+    padding: 8px 16px 8px 32px;
+    border: 1px solid #929292;
+    border-radius: 4px;
+    background-color: white;
+    color: #929292;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.toggle-buttons input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+/* Стиль для кружка */
+.toggle-button::before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    border: 1px solid #929292;
+    border-radius: 50%;
+    background-color: white;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+/* Обводка кружка при наведении */
+.toggle-buttons input[type="radio"]:hover+.toggle-button::before {
+    border: 1px solid #1C5493;
+}
+
+/* Стиль при выборе - синий кружок с обводкой */
+.toggle-buttons input[type="radio"]:checked+.toggle-button::before {
+    border: 5px solid #1C5493;
+    background-color: white;
+    width: 16px;
+    height: 16px;
+}
+
+/* Стиль при наведении на кнопку */
+.toggle-buttons input[type="radio"]:hover+.toggle-button {
+    border-color: #1C5493;
+    color: #1C5493;
+}
+
+/* Стиль при фокусе */
+.toggle-buttons input[type="radio"]:focus+.toggle-button {
+    box-shadow: 0 0 0 2px rgba(28, 84, 147, 0.3);
+}
+
+/* Анимация при выборе */
+@keyframes pulse {
+    0% {
+        transform: translateY(-50%) scale(1);
+    }
+
+    50% {
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    100% {
+        transform: translateY(-50%) scale(1);
+    }
+}
+
+.toggle-buttons input[type="radio"]:checked+.toggle-button::before {
+    animation: pulse 0.3s ease;
+}
+
+
+
+
+
+
+
+
+
+.file-upload {
+    font-family: Arial, sans-serif;
+    margin: 20px 0;
+}
+
+.upload-area {
+    display: block;
+    border: 2px dashed #929292;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 15px;
+    margin: 10px 0;
+}
+
+.upload-area:hover {
+    border-color: #1C5493;
+    background-color: #F8FAFF;
+}
+
+.upload-icon {
+    font-size: 48px;
+    color: #929292;
+    margin-bottom: 10px;
+}
+
+.upload-text {
+    color: #929292;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.format-hint {
+    color: #929292;
+    font-size: 14px;
+}
+
+.file-input {
+    display: none;
+}
+
+.uploaded-files {
+    margin-top: 20px;
+}
+.success{
+    font-size: 50px;
+}
+.back{
+    text-align: center;
+    font-weight: 400;
+}
+.back a{
+    color: #1C5493;
+    font-weight: 600;
+}
+
+.uploaded-files-title {
+    margin-bottom: 10px;
+    color: #929292;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    background: #F5F5F5;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.file-icon {
+    margin-right: 10px;
+    color: #1C5493;
+}
+
+.file-name {
+    color: #333;
+}
+
+#file-list {
+    width: 100%;
+}
+
+.remove-file {
+    border: none;
+    cursor: pointer;
+}
