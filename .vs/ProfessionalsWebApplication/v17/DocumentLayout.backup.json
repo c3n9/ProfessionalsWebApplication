@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\views\\form\\formview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\views\\form\\formview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\styles\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\styles\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\resources\\questions.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\resources\\questions.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\views\\form\\formview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\views\\form\\formview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 184,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,6 +46,19 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "style.css",
+              "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Styles\\style.css",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Styles\\style.css",
+              "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Styles\\style.css",
+              "RelativeToolTip": "ProfessionalsWebApplication\\Styles\\style.css",
+              "ViewState": "AgIAALABAAAAAAAAAADwv+MBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-04-28T08:13:45.9Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
               "Title": "questions.json",
               "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Resources\\questions.json",
@@ -55,13 +72,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "FormView.cshtml",
               "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Views\\Form\\FormView.cshtml",
               "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Views\\Form\\FormView.cshtml",
               "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Views\\Form\\FormView.cshtml",
               "RelativeToolTip": "ProfessionalsWebApplication\\Views\\Form\\FormView.cshtml",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAADoAAAADAAAAAAAAAA==",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAAEoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-28T05:51:21.244Z",
               "EditorCaption": ""

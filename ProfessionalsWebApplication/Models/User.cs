@@ -8,10 +8,11 @@ namespace ProfessionalsWebApplication.Models
 	{
 		[Key]
 		public int Id { get; set; }
-
+		[Required]
 		public string FormName { get; set; }
 
 		public string AnswersJson { get; set; }
+		[Required]
 
 		public DateTime Timestamp { get; set; }
 

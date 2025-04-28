@@ -6,12 +6,19 @@ namespace ProfessionalsWebApplication.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
 		public string Type { get; set; } = string.Empty;
-        public string Text { get; set; } = string.Empty;
-        public bool IsRequired { get; set; } = false;
-        public bool IsDropDown {get;set;} = false;
-        public string Note { get; set; } = string.Empty;
+        [Required]
+		[MaxLength(150)]
+		public string Text { get; set; } = string.Empty;
+        [Required]
+		public bool IsRequired { get; set; } = false;
+        [Required]
+		public bool IsDropDown {get;set;} = false;
+		public string Note { get; set; } = string.Empty;
+        [Required]
+        [MaxLength(300)]
 		public string DisplayText { get; set; } = string.Empty;
-        public List<string>? Options { get; set; }
+		public List<string>? Options { get; set; }
     }
 }
