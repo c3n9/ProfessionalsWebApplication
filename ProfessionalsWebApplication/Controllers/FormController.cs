@@ -4,6 +4,8 @@ using ProfessionalsWebApplication.Models;
 using ProfessionalsWebApplication.Services;
 using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Json.Nodes;
+using ProfessionalsWebApplication.Enums;
 
 namespace ProfessionalsWebApplication.Controllers
 {
@@ -37,17 +39,22 @@ namespace ProfessionalsWebApplication.Controllers
 			var serializedData = JsonSerializer.Serialize(new
 			{
 				FormData = submission,
-				Timestamp = DateTime.UtcNow,
 			}, new JsonSerializerOptions
 			{
 				WriteIndented = true,
 				Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
 			});
-
-			Console.WriteLine(serializedData);
-
+			var root = JsonNode.Parse(serializedData);
+			string formId = root?["FormData"]?["FormId"]?.ToString();
+			string answersNode = root?["FormData"]?["Answers"].ToString();
+			var newList = MigrateOldJson(answersNode);
+			var newUser = new User()
+			{
+				FormId = formId,
+				Answers = newList,
+				Timestamp = DateTime.Now,
+			};
 			HttpContext.Session.SetString("FormSubmitted", "true");
-
 			return Json(new { redirectUrl = Url.Action("thank-you", "forms") });
 		}
 
@@ -61,6 +68,38 @@ namespace ProfessionalsWebApplication.Controllers
 			else
 				return View("NotFoundView");
 		}
+		
+		public static List<Answer> MigrateOldJson(string oldJson)
+		{
+			var dict = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(oldJson);
+			var result = new List<Answer>();
+
+			foreach (var pair in dict)
+			{
+				if (pair.Value.ValueKind == JsonValueKind.Object)
+				{
+					var file = pair.Value.Deserialize<FileAnswer>();
+					result.Add(new Answer
+					{
+						Question = pair.Key,
+						Type = AnswerType.File,
+						File = file
+					});
+				}
+				else
+				{
+					result.Add(new Answer
+					{
+						Question = pair.Key,
+						Type = AnswerType.Text,
+						Value = pair.Value.GetString()
+					});
+				}
+			}
+
+			return result;
+		}
+
 
 
 	}

@@ -9,18 +9,17 @@ namespace ProfessionalsWebApplication.Models
 		[Key]
 		public int Id { get; set; }
 		[Required]
-		public string FormName { get; set; }
-
+		public string FormId { get; set; }
 		public string AnswersJson { get; set; }
 		[Required]
-
 		public DateTime Timestamp { get; set; }
-
 		[NotMapped]
-		public Dictionary<string, object> Answers
+		public List<Answer> Answers
 		{
-			get => AnswersJson == null ? new Dictionary<string, object>()
-									   : JsonSerializer.Deserialize<Dictionary<string, object>>(AnswersJson);
+			get => string.IsNullOrEmpty(AnswersJson) 
+				? new List<Answer>() 
+				: JsonSerializer.Deserialize<List<Answer>>(AnswersJson);
+
 			set => AnswersJson = JsonSerializer.Serialize(value);
 		}
 	}
