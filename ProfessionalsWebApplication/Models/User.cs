@@ -12,7 +12,7 @@ namespace ProfessionalsWebApplication.Models
 		public string FormId { get; set; }
 		public string AnswersJson { get; set; }
 		[Required]
-		public DateTime Timestamp { get; set; }
+		public DateTime Timestamp { get; set; } = DateTime.Now;
 		[NotMapped]
 		public List<Answer> Answers
 		{

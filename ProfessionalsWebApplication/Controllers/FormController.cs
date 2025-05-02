@@ -6,6 +6,7 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using ProfessionalsWebApplication.Enums;
+using ProfessionalsWebApplication.Models.DTO;
 
 namespace ProfessionalsWebApplication.Controllers
 {
@@ -57,6 +58,26 @@ namespace ProfessionalsWebApplication.Controllers
 			HttpContext.Session.SetString("FormSubmitted", "true");
 			return Json(new { redirectUrl = Url.Action("thank-you", "forms") });
 		}
+		
+		[HttpPost("submit-desctop")]
+		public async Task<IActionResult> SubmitFormDesctop([FromBody] EncryptedSubmissionDto encryptSubmission)
+		{
+			var submission = CryptoService.Decrypt(encryptSubmission.Data);
+			var root = JsonNode.Parse(submission);
+			string formId = root?["FormId"]?.ToString();
+			string answersNode = root?["Answers"].ToString();
+
+			var newList = MigrateOldJson(answersNode);
+			var newUser = new User()
+			{
+				FormId = formId,
+				Answers = newList,
+				Timestamp = DateTime.Now,
+			};
+			return Ok();
+		}
+		
+		
 
 		[HttpGet("thank-you")]
 		public IActionResult ThankYou()
