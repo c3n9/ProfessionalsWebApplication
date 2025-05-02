@@ -63,8 +63,9 @@
 	<button type="submit" class="ripple-button">Отправить</button>
 </form>
 
+<script src="https://cdn.jsdelivr.net/npm/jsencrypt@3.0.0-rc.1/bin/jsencrypt.min.js"></script>
 <script>
-	   document.getElementById('form').onsubmit = function(event) {
+	document.getElementById('form').onsubmit = function(event) {
 		event.preventDefault();
 
 		let formData = new FormData(document.getElementById('form'));
@@ -92,7 +93,6 @@
 					};
 					reader.readAsDataURL(value);
 				});
-
 				filePromises.push(filePromise);
 			} else {
 				data.Answers[key] = value;
@@ -101,30 +101,60 @@
 
 		Promise.all(filePromises)
 			.then(() => {
-				submitFormData(data);
+				submitEncrypted(data);
 			})
 			.catch(error => {
 				alert("Ошибка при обработке файлов: " + error);
 			});
 	};
 
-	   function submitFormData(data) {
-		fetch('/forms/submit', { // Убедись, что путь правильный
+	function submitEncrypted(data) {
+		const rsa = new JSEncrypt();
+
+		const publicKey = `
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApg2xMiBZY7y+F73l31Ke
+7OPWIkaCHk847QZo+dOTkeb98+iP+z3AOViCK18lWikLthlCoIGaDcKPRrVL8faK
+vbzv43Ka12i/eZIbp7JW4ek/I1bRdYd41coHmdD3HEbs56goUJBVBcHGuePH0yca
+835Dx/AdxueLGOLgoSi+vyGaRQf4sMGjoRyMrm9OF8ougIXbfGij9b7i0kUPjifc
+Dr3znK5gAeawHWRDzjHs5CJkAcs4ybqDRI8XSaXRag2r4fj9LwsG3jFO4OzGv6cf
+bf6TwQHHpD9In9474oVg5kuXPghpwWbG0euckBmVyzWs+sMx9sB/IKe19tZu7+3N
+PQIDAQAB
+-----END PUBLIC KEY-----
+`.trim();
+
+		rsa.setPublicKey(publicKey);
+
+		const encrypted = rsa.encrypt(JSON.stringify(data));
+
+		if (!encrypted) {
+			alert('Ошибка при шифровании данных!');
+			return;
+		}
+
+		const encryptedData = {
+			EncryptSubmission: true,
+			Data: encrypted
+		};
+
+		fetch('/forms/submit', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(data)
+			body: JSON.stringify(encryptedData)
 		})
-		.then(response => response.json())
-		.then(result => {
-			if (result.redirectUrl) {
-				window.location.href = result.redirectUrl;
-			}
-		})
-		.catch(error => {
-			console.error('Произошла ошибка:', error);
-		});
+			.then(response => response.json())
+			.then(result => {
+				if (result.redirectUrl) {
+					window.location.href = result.redirectUrl;
+				}
+			})
+			.catch(error => {
+				console.error('Произошла ошибка:', error);
+			});
 	}
-
 </script>
+
+
+

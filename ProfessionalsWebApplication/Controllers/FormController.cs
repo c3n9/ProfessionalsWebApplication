@@ -33,33 +33,8 @@ namespace ProfessionalsWebApplication.Controllers
 			}
 			return View("FormView", form);
 		}
-
-		[HttpPost("submit")]
-		public async Task<IActionResult> SubmitForm([FromBody] dynamic submission)
-		{
-			var serializedData = JsonSerializer.Serialize(new
-			{
-				FormData = submission,
-			}, new JsonSerializerOptions
-			{
-				WriteIndented = true,
-				Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
-			});
-			var root = JsonNode.Parse(serializedData);
-			string formId = root?["FormData"]?["FormId"]?.ToString();
-			string answersNode = root?["FormData"]?["Answers"].ToString();
-			var newList = MigrateOldJson(answersNode);
-			var newUser = new User()
-			{
-				FormId = formId,
-				Answers = newList,
-				Timestamp = DateTime.Now,
-			};
-			HttpContext.Session.SetString("FormSubmitted", "true");
-			return Json(new { redirectUrl = Url.Action("thank-you", "forms") });
-		}
 		
-		[HttpPost("submit-desctop")]
+		[HttpPost("submit")]
 		public async Task<IActionResult> SubmitFormDesctop([FromBody] EncryptedSubmissionDto encryptSubmission)
 		{
 			var submission = CryptoService.Decrypt(encryptSubmission.Data);
@@ -74,7 +49,8 @@ namespace ProfessionalsWebApplication.Controllers
 				Answers = newList,
 				Timestamp = DateTime.Now,
 			};
-			return Ok();
+			HttpContext.Session.SetString("FormSubmitted", "true");
+			return Json(new { redirectUrl = Url.Action("thank-you", "forms") });
 		}
 		
 		
