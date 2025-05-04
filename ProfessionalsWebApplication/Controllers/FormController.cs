@@ -24,8 +24,7 @@ namespace ProfessionalsWebApplication.Controllers
 		[HttpGet("{hash}")]
 		public IActionResult GetForm(string hash)
 		{
-			// Заглушка для данных формы (обычно загружается из БД)
-			var form = _context.Forms.Include(f => f.Questions).FirstOrDefault(x => x.Hash == hash);
+			var form = _context.Forms.Where(x => x.DateStart.Date <= DateTime.Now.Date && x.DateEnd.Date >= DateTime.Now.Date).Include(f => f.Questions).ToList().FirstOrDefault(x => x.Hash == hash);
 			if (form == null)
 			{
 				Response.StatusCode = 404;
