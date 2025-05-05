@@ -3,28 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\controllers\\formcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\controllers\\formcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\views\\form\\formview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\views\\form\\formview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\resources\\questions.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\resources\\questions.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\services\\cryptoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\services\\cryptoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\models\\dto\\encryptedsubmissiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\dto\\encryptedsubmissiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\models\\questionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\questionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -60,11 +52,36 @@
         },
         {
           "DockedWidth": 129,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Program.cs",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Program.cs",
+              "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Program.cs",
+              "RelativeToolTip": "ProfessionalsWebApplication\\Program.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAADwAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-05T06:25:57.886Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "QuestionModel.cs",
+              "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\QuestionModel.cs",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\QuestionModel.cs",
+              "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\QuestionModel.cs",
+              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\QuestionModel.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwBMAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-05T06:21:07.942Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "questions.json",
               "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Resources\\questions.json",
               "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Resources\\questions.json",
@@ -72,8 +89,7 @@
               "RelativeToolTip": "ProfessionalsWebApplication\\Resources\\questions.json",
               "ViewState": "AgIAADwAAAAAAAAAAAAAAEQAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-05-05T06:02:30.344Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-05T06:02:30.344Z"
             },
             {
               "$type": "Document",
@@ -83,61 +99,9 @@
               "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Views\\Form\\FormView.cshtml",
               "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Views\\Form\\FormView.cshtml",
               "RelativeToolTip": "ProfessionalsWebApplication\\Views\\Form\\FormView.cshtml",
-              "ViewState": "AgIAAJoAAAAAAAAAAAAnwJ8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABwAAAAAAAAAAAAnwBsAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-05-05T05:56:54.167Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\User.cs",
-              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\User.cs",
-              "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\User.cs",
-              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\User.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAuwBoAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T05:45:01.337Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FormController.cs",
-              "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Controllers\\FormController.cs",
-              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Controllers\\FormController.cs",
-              "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Controllers\\FormController.cs",
-              "RelativeToolTip": "ProfessionalsWebApplication\\Controllers\\FormController.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAYwCAAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T08:53:14.414Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "EncryptedSubmissionDto.cs",
-              "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\DTO\\EncryptedSubmissionDto.cs",
-              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\DTO\\EncryptedSubmissionDto.cs",
-              "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\DTO\\EncryptedSubmissionDto.cs",
-              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\DTO\\EncryptedSubmissionDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T05:42:59.249Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CryptoService.cs",
-              "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Services\\CryptoService.cs",
-              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Services\\CryptoService.cs",
-              "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Services\\CryptoService.cs",
-              "RelativeToolTip": "ProfessionalsWebApplication\\Services\\CryptoService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T05:37:15.026Z",
               "EditorCaption": ""
             }
           ]

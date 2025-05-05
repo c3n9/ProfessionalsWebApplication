@@ -22,7 +22,10 @@
 				<label for="question-@question.Id" class="floating-label">
 					@question.Text.TrimEnd(':')
 				</label>
-				@* <p class="note">note</p> *@
+				@if (!string.IsNullOrWhiteSpace(question.Note))
+				{
+					<p class="note">@question.Note</p>
+				}
 			</div>
 		}
 		else if (question.Type == "Button" && question.Options != null && question.IsDropDown == false)
