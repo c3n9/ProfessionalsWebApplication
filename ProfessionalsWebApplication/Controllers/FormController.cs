@@ -36,18 +36,13 @@ namespace ProfessionalsWebApplication.Controllers
 		[HttpPost("submit")]
 		public async Task<IActionResult> SubmitFormDesctop([FromBody] EncryptedSubmissionDto encryptSubmission)
 		{
-			var submission = CryptoService.Decrypt(encryptSubmission.Data);
-			var root = JsonNode.Parse(submission);
-			string formId = root?["FormId"]?.ToString();
-			string answersNode = root?["Answers"].ToString();
-
-			var newList = MigrateOldJson(answersNode);
 			var newUser = new User()
 			{
-				FormId = formId,
-				Answers = newList,
+				FormId = encryptSubmission.FormId,
+				AnswersJson = encryptSubmission.Data,
 				Timestamp = DateTime.Now,
 			};
+			var answers = newUser.Answers;
 			HttpContext.Session.SetString("FormSubmitted", "true");
 			return Json(new { redirectUrl = Url.Action("thank-you", "forms") });
 		}
@@ -65,36 +60,7 @@ namespace ProfessionalsWebApplication.Controllers
 				return View("NotFoundView");
 		}
 		
-		public static List<Answer> MigrateOldJson(string oldJson)
-		{
-			var dict = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(oldJson);
-			var result = new List<Answer>();
-
-			foreach (var pair in dict)
-			{
-				if (pair.Value.ValueKind == JsonValueKind.Object)
-				{
-					var file = pair.Value.Deserialize<FileAnswer>();
-					result.Add(new Answer
-					{
-						Question = pair.Key,
-						Type = AnswerType.File,
-						File = file
-					});
-				}
-				else
-				{
-					result.Add(new Answer
-					{
-						Question = pair.Key,
-						Type = AnswerType.Text,
-						Value = pair.Value.GetString()
-					});
-				}
-			}
-
-			return result;
-		}
+		
 
 
 

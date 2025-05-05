@@ -70,7 +70,6 @@
 
 		let formData = new FormData(document.getElementById('form'));
 		let data = {
-			FormId: '@Model.Id',
 			Answers: {},
 		};
 
@@ -133,7 +132,7 @@ PQIDAQAB
 		}
 
 		const encryptedData = {
-			EncryptSubmission: true,
+			FormId: '@Model.Id',
 			Data: encrypted
 		};
 
