@@ -47,31 +47,29 @@ namespace ProfessionalsWebApplication.Controllers
 		public async Task<IActionResult> UpdateQuestion(int id, [FromBody] QuestionModel questionModel)
 		{
 			if (id != questionModel.Id)
-			{
-				return BadRequest("Такого вопроса не существует.");
-			}
+				return BadRequest("ID в URL и теле запроса не совпадают.");
+
 			var existingQuestion = await _context.Questions.FindAsync(id);
 			if (existingQuestion == null)
-			{
-				return NotFound("Такой вопрос не найден.");
-			}
-			existingQuestion.Text = questionModel.Text;
+				return NotFound("Вопрос не найден.");
+
+			_context.Entry(existingQuestion).CurrentValues.SetValues(questionModel);
+			_context.Entry(existingQuestion).Property(x => x.Id).IsModified = false;
+
 			try
 			{
 				await _context.SaveChangesAsync();
+				return Ok(existingQuestion);
 			}
 			catch (DbUpdateConcurrencyException)
 			{
-				if (!_context.Questions.Any(e => e.Id == id))
-				{
-					return NotFound("Такой вопрос не найден");
-				}
+				var entry = _context.Entry(existingQuestion);
+				await entry.ReloadAsync();
+				if (entry.State == EntityState.Detached)
+					return NotFound("Вопрос был удалён.");
 				else
-				{
-					return Conflict("Конфликт обновления данных. Вопрос уже существует.");
-				}
+					return Conflict("Конфликт версий. Данные были изменены другим пользователем.");
 			}
-			return Ok();
 		}
 
 		[HttpDelete("{id}")]

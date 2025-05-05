@@ -58,31 +58,30 @@ namespace ProfessionalsWebApplication.Controllers
 		public async Task<IActionResult> UpdateForm(int id, [FromBody] FormModel formModel)
 		{
 			if (id != formModel.Id)
-			{
-				return BadRequest("Такой формы не существует.");
-			}
+				return BadRequest("ID в URL и теле запроса не совпадают.");
+
 			var existingForm = await _context.Forms.FindAsync(id);
 			if (existingForm == null)
-			{
-				return NotFound("Такая форма не найдена.");
-			}
-			existingForm.Name = formModel.Name;
+				return NotFound("Форма не найдена.");
+
+			_context.Entry(existingForm).CurrentValues.SetValues(formModel);
+			_context.Entry(existingForm).Property(x => x.Id).IsModified = false;
+
 			try
 			{
 				await _context.SaveChangesAsync();
+				return Ok(existingForm);
 			}
 			catch (DbUpdateConcurrencyException)
 			{
-				if (!_context.Forms.Any(e => e.Id == id))
-				{
-					return NotFound("Такая форма не найдена");
-				}
+				var entry = _context.Entry(existingForm);
+				await entry.ReloadAsync();
+
+				if (entry.State == EntityState.Detached)
+					return NotFound("Форма была удалена.");
 				else
-				{
-					return Conflict("Конфликт обновления данных. Форма уже существует.");
-				}
+					return Conflict("Конфликт версий. Данные были изменены другим пользователем.");
 			}
-			return Ok();
 		}
 
 		[HttpDelete("{id}")]
