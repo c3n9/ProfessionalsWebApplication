@@ -9,7 +9,9 @@ namespace ProfessionalsWebApplication.Models
 
 		}
 		public DbSet<FormModel> Forms { get; set; }
-
+		
+		public DbSet<Championship> Championships { get; set; }
+		public DbSet<Competence> Competences { get; set; }
 		public DbSet<QuestionModel> Questions { get; set; }
 
 		public DbSet<User> Users {  get; set; }
