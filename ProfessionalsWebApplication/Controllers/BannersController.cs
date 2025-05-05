@@ -4,6 +4,7 @@ using ProfessionalsWebApplication.Models;
 using ProfessionalsWebApplication.Models.DTO;
 using Microsoft.Extensions.Options;
 using System.IO;
+using ProfessionalsWebApplication.Models.Settings;
 
 namespace ProfessionalsWebApplication.Controllers
 {
@@ -201,10 +202,5 @@ namespace ProfessionalsWebApplication.Controllers
             var request = HttpContext.Request;
             return $"{request.Scheme}://{request.Host}/uploads/banners/{Path.GetFileName(imagePath)}";
         }
-    }
-
-    public class FileStorageSettings
-    {
-        public string BannerImagesPath { get; set; }
     }
 }
