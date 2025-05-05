@@ -1,53 +1,62 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using ProfessionalsWebApplication.Controllers;
 using ProfessionalsWebApplication.Models;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Р РµРіРёСЃС‚СЂР°С†РёСЏ РєРѕРЅС„РёРіСѓСЂР°С†РёРё FileStorage
+builder.Services.Configure<FileStorageSettings>(builder.Configuration.GetSection("FileStorage"));
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<ProfessionalsDbContext>(options =>
-	options.UseSqlite(connectionString));
+    options.UseSqlite(connectionString));
 
-// Добавляем поддержку MVC с представлениями
 builder.Services.AddControllersWithViews();
-
-// Добавляем поддержку API Explorer (Swagger)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddSession(); 
+builder.Services.AddSession();
 
 var app = builder.Build();
 
-app.UseStaticFiles(); // Для обслуживания файлов из wwwroot по умолчанию
+// РќР°СЃС‚СЂРѕР№РєР° СЃС‚Р°С‚РёС‡РµСЃРєРёС… С„Р°Р№Р»РѕРІ
+app.UseStaticFiles(); // Р”Р»СЏ wwwroot
 
-// Для обслуживания файлов из другой папки (например, Styles)
+// РќР°СЃС‚СЂРѕР№РєР° РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… РїСѓС‚РµР№ РґР»СЏ СЃС‚Р°С‚РёС‡РµСЃРєРёС… С„Р°Р№Р»РѕРІ
 app.UseStaticFiles(new StaticFileOptions
 {
-	FileProvider = new PhysicalFileProvider(
-		Path.Combine(Directory.GetCurrentDirectory(), "Styles")),
-	RequestPath = "/styles" // Этот путь будет использоваться для доступа к файлам
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Styles")),
+    RequestPath = "/styles"
 });
 
+// Р”Р»СЏ Р·Р°РіСЂСѓР·РєРё Р±Р°РЅРЅРµСЂРѕРІ
+var fileStorageSettings = app.Configuration.GetSection("FileStorage").Get<FileStorageSettings>();
+var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), fileStorageSettings?.BannerImagesPath ?? "uploads/banners");
+
+if (!Directory.Exists(uploadsPath))
+{
+    Directory.CreateDirectory(uploadsPath);
+}
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(uploadsPath),
+    RequestPath = "/uploads/banners"
+});
 
 app.UseSession();
-// Включаем Swagger только в режиме разработки
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// Подключаем статические файлы (CSS, JS)
-app.UseStaticFiles();
-
-// Используем маршрутизацию и авторизацию
 app.UseRouting();
 app.UseAuthorization();
 
-//Добавляем маршруты для представлений и API
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}"
@@ -56,8 +65,7 @@ app.MapControllerRoute(
 app.Run();
 
 
-
-// Подсказка для себя
-//dotnet ef migrations add <название>
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+//dotnet ef migrations add <пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ>
 //dotnet ef database update
 

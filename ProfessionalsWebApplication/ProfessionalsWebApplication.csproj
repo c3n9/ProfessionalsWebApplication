@@ -32,4 +32,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\banners\" />
+  </ItemGroup>
+
 </Project>
