@@ -1,35 +1,14 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\models\\dto\\bannerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\dto\\bannerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\models\\banner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\banner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\controllers\\bannerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\controllers\\bannerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\models\\questionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\questionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\models\\professionalsdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\professionalsdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "WorkspaceRootPath": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\",
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 239,
+          "DockedWidth": 200,
           "SelectedChildIndex": -1,
           "Children": [
             {
@@ -39,89 +18,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:132:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
-            }
-          ]
-        },
-        {
-          "DockedWidth": 129,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "BannerDto.cs",
-              "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\DTO\\BannerDto.cs",
-              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\DTO\\BannerDto.cs",
-              "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\DTO\\BannerDto.cs",
-              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\DTO\\BannerDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T11:46:08.237Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "BannersController.cs",
-              "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Controllers\\BannersController.cs",
-              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Controllers\\BannersController.cs",
-              "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Controllers\\BannersController.cs",
-              "RelativeToolTip": "ProfessionalsWebApplication\\Controllers\\BannersController.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAYwEEAAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T11:21:32.98Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "QuestionModel.cs",
-              "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\QuestionModel.cs",
-              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\QuestionModel.cs",
-              "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\QuestionModel.cs",
-              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\QuestionModel.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAwAkAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T06:21:07.942Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ProfessionalsDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\ProfessionalsDbContext.cs",
-              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\ProfessionalsDbContext.cs",
-              "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\ProfessionalsDbContext.cs",
-              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\ProfessionalsDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T11:19:57.807Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Banner.cs",
-              "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\Banner.cs",
-              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\Banner.cs",
-              "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\Banner.cs",
-              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\Banner.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T11:13:30.473Z",
-              "EditorCaption": ""
             }
           ]
         }

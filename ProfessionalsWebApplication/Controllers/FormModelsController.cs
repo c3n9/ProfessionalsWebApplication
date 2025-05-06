@@ -66,6 +66,7 @@ namespace ProfessionalsWebApplication.Controllers
 
 			_context.Entry(existingForm).CurrentValues.SetValues(formModel);
 			_context.Entry(existingForm).Property(x => x.Id).IsModified = false;
+			_context.Entry(existingForm).Property(x => x.Hash).IsModified = false;
 
 			try
 			{

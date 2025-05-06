@@ -9,10 +9,12 @@ namespace ProfessionalsWebApplication.Models
         public int Id { get; set; }
         public string Hash { get; set; }
         [Required]
-        [MaxLength(150)]
         public string Name { get; set; } = string.Empty;
+        [Required]
         public bool IsVisible { get; set; } = true;
+        [Required]
         public DateTime DateStart { get; set; }
+        [Required]
         public DateTime DateEnd { get; set; }
         public List<QuestionModel> Questions { get; set; } = new();
     }

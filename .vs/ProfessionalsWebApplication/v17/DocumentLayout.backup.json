@@ -1,30 +1,30 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\",
+  "WorkspaceRootPath": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\controllers\\bannerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\controllers\\bannerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\quart\\source\\repos\\professionalswebapplication\\professionalswebapplication\\models\\formmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\formmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\controllers\\formmodelscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\controllers\\formmodelscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\quart\\source\\repos\\professionalswebapplication\\professionalswebapplication\\models\\championship.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\championship.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\controllers\\questionmodelscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\quart\\source\\repos\\professionalswebapplication\\professionalswebapplication\\models\\competence.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\competence.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\quart\\source\\repos\\professionalswebapplication\\professionalswebapplication\\controllers\\competencescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\controllers\\competencescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\quart\\source\\repos\\professionalswebapplication\\professionalswebapplication\\controllers\\championshipscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\controllers\\championshipscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\quart\\source\\repos\\professionalswebapplication\\professionalswebapplication\\controllers\\questionmodelscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\controllers\\questionmodelscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\models\\questionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\questionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\models\\banner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\banner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\manakov\\documents\\professionalswebapplication\\professionalswebapplication\\models\\professionalsdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\professionalsdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -33,9 +33,48 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 239,
-          "SelectedChildIndex": -1,
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FormModel.cs",
+              "DocumentMoniker": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\FormModel.cs",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\FormModel.cs",
+              "ToolTip": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\FormModel.cs",
+              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\FormModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T06:34:39.889Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Championship.cs",
+              "DocumentMoniker": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\Championship.cs",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\Championship.cs",
+              "ToolTip": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\Championship.cs",
+              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\Championship.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T06:34:36.793Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Competence.cs",
+              "DocumentMoniker": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\Competence.cs",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\Competence.cs",
+              "ToolTip": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\Competence.cs",
+              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\Competence.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T06:29:11.039Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
@@ -45,99 +84,42 @@
               "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:132:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
-            }
-          ]
-        },
-        {
-          "DockedWidth": 129,
-          "SelectedChildIndex": 2,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FormModelsController.cs",
-              "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Controllers\\FormModelsController.cs",
-              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Controllers\\FormModelsController.cs",
-              "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Controllers\\FormModelsController.cs",
-              "RelativeToolTip": "ProfessionalsWebApplication\\Controllers\\FormModelsController.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAYwEMAAABHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T11:31:18.969Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "QuestionModelsController.cs",
-              "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Controllers\\QuestionModelsController.cs",
-              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Controllers\\QuestionModelsController.cs",
-              "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Controllers\\QuestionModelsController.cs",
-              "RelativeToolTip": "ProfessionalsWebApplication\\Controllers\\QuestionModelsController.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAkwDMAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T11:26:20.601Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "BannersController.cs",
-              "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Controllers\\BannersController.cs",
-              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Controllers\\BannersController.cs",
-              "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Controllers\\BannersController.cs",
-              "RelativeToolTip": "ProfessionalsWebApplication\\Controllers\\BannersController.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAIwDsAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T11:21:32.98Z",
-              "EditorCaption": ""
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "QuestionModel.cs",
-              "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\QuestionModel.cs",
-              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\QuestionModel.cs",
-              "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\QuestionModel.cs",
-              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\QuestionModel.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAwAkAAAAjAAAAAAAAAA==",
+              "Title": "CompetencesController.cs",
+              "DocumentMoniker": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Controllers\\CompetencesController.cs",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Controllers\\CompetencesController.cs",
+              "ToolTip": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Controllers\\CompetencesController.cs",
+              "RelativeToolTip": "ProfessionalsWebApplication\\Controllers\\CompetencesController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAoAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T06:21:07.942Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ProfessionalsDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\ProfessionalsDbContext.cs",
-              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\ProfessionalsDbContext.cs",
-              "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\ProfessionalsDbContext.cs",
-              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\ProfessionalsDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T11:19:57.807Z",
+              "WhenOpened": "2025-05-06T06:29:30.317Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Banner.cs",
-              "DocumentMoniker": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\Banner.cs",
-              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\Banner.cs",
-              "ToolTip": "C:\\Users\\manakov\\Documents\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\Banner.cs",
-              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\Banner.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Title": "ChampionshipsController.cs",
+              "DocumentMoniker": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Controllers\\ChampionshipsController.cs",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Controllers\\ChampionshipsController.cs",
+              "ToolTip": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Controllers\\ChampionshipsController.cs",
+              "RelativeToolTip": "ProfessionalsWebApplication\\Controllers\\ChampionshipsController.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAIwD4AAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T11:13:30.473Z",
+              "WhenOpened": "2025-05-06T06:20:10.529Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "QuestionModelsController.cs",
+              "DocumentMoniker": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Controllers\\QuestionModelsController.cs",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Controllers\\QuestionModelsController.cs",
+              "ToolTip": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Controllers\\QuestionModelsController.cs",
+              "RelativeToolTip": "ProfessionalsWebApplication\\Controllers\\QuestionModelsController.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAIwC0AAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T06:19:46.894Z",
               "EditorCaption": ""
             }
           ]
