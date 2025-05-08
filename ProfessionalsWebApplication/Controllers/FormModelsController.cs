@@ -5,6 +5,7 @@ using ProfessionalsWebApplication.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ProfessionalsWebApplication.Models.DTO;
 
 namespace ProfessionalsWebApplication.Controllers
 {
@@ -35,43 +36,64 @@ namespace ProfessionalsWebApplication.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> CreateForm([FromBody] FormModel formModel)
+		public async Task<IActionResult> CreateForm([FromForm] FormModelDto formModelDto)
 		{
-			if (!ModelState.IsValid) return BadRequest(ModelState);
+			if (!ModelState.IsValid) 
+				return BadRequest(ModelState);
+
+			var formModel = new FormModel
+			{
+				Name = formModelDto.Name,
+				Hash = string.Empty,
+				IsVisible = formModelDto.IsVisible,
+				DateStart = formModelDto.DateStart,
+				DateEnd = formModelDto.DateEnd
+			};
 
 			_context.Forms.Add(formModel);
 			await _context.SaveChangesAsync();
 
 			formModel.Hash = HashGenerator.GenerateHash(formModel.Id);
-		    _context.Forms.Update(formModel);
+			_context.Forms.Update(formModel);
 			await _context.SaveChangesAsync();
 
+			var baseUrl = $"{Request.Scheme}://{Request.Host}";
+			var formUrl = $"{baseUrl}/forms/{formModel.Hash}";
 
-			//var location = Url.Link(nameof(GetForm), new { id = formModel.Id });
-
-			//return Created(location, formModel);
-
-			return CreatedAtAction(nameof(GetForm), new { id = formModel.Id }, formModel);
+			return Created(formUrl, new 
+			{
+				Form = formModel,
+				Url = formUrl
+			});
 		}
 
 		[HttpPut("{id}")]
-		public async Task<IActionResult> UpdateForm(int id, [FromBody] FormModel formModel)
+		public async Task<IActionResult> UpdateForm(int id, [FromForm] FormModelDto formModelDto)
 		{
-			if (id != formModel.Id)
-				return BadRequest("ID в URL и теле запроса не совпадают.");
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
 
 			var existingForm = await _context.Forms.FindAsync(id);
 			if (existingForm == null)
 				return NotFound("Форма не найдена.");
 
-			_context.Entry(existingForm).CurrentValues.SetValues(formModel);
-			_context.Entry(existingForm).Property(x => x.Id).IsModified = false;
-			_context.Entry(existingForm).Property(x => x.Hash).IsModified = false;
+			existingForm.Name = formModelDto.Name;
+			existingForm.IsVisible = formModelDto.IsVisible;
+			existingForm.DateStart = formModelDto.DateStart;
+			existingForm.DateEnd = formModelDto.DateEnd;
 
 			try
 			{
 				await _context.SaveChangesAsync();
-				return Ok(existingForm);
+
+				var baseUrl = $"{Request.Scheme}://{Request.Host}";
+				var formUrl = $"{baseUrl}/forms/{existingForm.Hash}";
+
+				return Ok(new 
+				{
+					Form = existingForm,
+					Url = formUrl
+				});
 			}
 			catch (DbUpdateConcurrencyException)
 			{

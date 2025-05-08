@@ -11,7 +11,6 @@ namespace ProfessionalsWebApplication.Models
         [Required]
 		public string Type { get; set; } = string.Empty;
         [Required]
-		[MaxLength(150)]
 		public string Text { get; set; } = string.Empty;
         [Required]
 		public bool IsRequired { get; set; } = false;
@@ -19,7 +18,6 @@ namespace ProfessionalsWebApplication.Models
 		public bool IsDropDown {get;set;} = false;
 		public string? Note { get; set; }
         [Required]
-        [MaxLength(300)]
 		public string DisplayText { get; set; } = string.Empty;
 		public List<string>? Options { get; set; }
 

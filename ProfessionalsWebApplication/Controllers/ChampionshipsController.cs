@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProfessionalsWebApplication.Models;
+using ProfessionalsWebApplication.Models.DTO;
 
 namespace ProfessionalsWebApplication.Controllers;
 
@@ -30,18 +31,34 @@ public class ChampionshipsController : Controller
         return Ok(championship);
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateChampionship(int id, [FromBody] Championship championship)
+    [HttpPost]
+    public async Task<IActionResult> CreateChampionship([FromForm] ChampionshipDto championshipDto)
     {
-        if (id != championship.Id)
-            return BadRequest("ID в URL и теле запроса не совпадают.");
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        var championship = new Championship
+        {
+            Name = championshipDto.Name
+        };
+
+        _context.Championships.Add(championship);
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetChampionship), new { id = championship.Id }, championship);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateChampionship(int id, [FromForm] ChampionshipDto championshipDto)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
 
         var existingChampionship = await _context.Championships.FindAsync(id);
         if (existingChampionship == null)
             return NotFound("Чемпионат не найден.");
 
-        _context.Entry(existingChampionship).CurrentValues.SetValues(championship);
-        _context.Entry(existingChampionship).Property(x => x.Id).IsModified = false;
+        existingChampionship.Name = championshipDto.Name;
 
         try
         {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProfessionalsWebApplication.Models;
+using ProfessionalsWebApplication.Models.DTO;
 
 namespace ProfessionalsWebApplication.Controllers
 {
@@ -18,30 +19,46 @@ namespace ProfessionalsWebApplication.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCompetences()
         {
-            var competence = await _context.Competences.ToListAsync();
-            return Ok(competence);
+            var competences = await _context.Competences.ToListAsync();
+            return Ok(competences);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCompetence(int id)
         {
             var competence = await _context.Competences.FindAsync(id);
-            if (competence == null) return NotFound("Такая компетенция не найден.");
+            if (competence == null) return NotFound("Такая компетенция не найдена.");
             return Ok(competence);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCompetence(int id, [FromBody] Competence competence)
+        [HttpPost]
+        public async Task<IActionResult> CreateCompetence([FromForm] CompetenceDto competenceDto)
         {
-            if (id != competence.Id)
-                return BadRequest("ID в URL и теле запроса не совпадают.");
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var competence = new Competence
+            {
+                Name = competenceDto.Name
+            };
+
+            _context.Competences.Add(competence);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetCompetence), new { id = competence.Id }, competence);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCompetence(int id, [FromForm] CompetenceDto competenceDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             var existingCompetence = await _context.Competences.FindAsync(id);
             if (existingCompetence == null)
-                return NotFound("Компетенция не найден.");
+                return NotFound("Компетенция не найдена.");
 
-            _context.Entry(existingCompetence).CurrentValues.SetValues(competence);
-            _context.Entry(existingCompetence).Property(x => x.Id).IsModified = false;
+            existingCompetence.Name = competenceDto.Name;
 
             try
             {
@@ -53,7 +70,7 @@ namespace ProfessionalsWebApplication.Controllers
                 var entry = _context.Entry(existingCompetence);
                 await entry.ReloadAsync();
                 if (entry.State == EntityState.Detached)
-                    return NotFound("Компетенция был удалён.");
+                    return NotFound("Компетенция была удалена.");
                 else
                     return Conflict("Конфликт версий. Данные были изменены другим пользователем.");
             }
