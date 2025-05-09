@@ -40,7 +40,6 @@
 					}
 				</div>
 			</div>
-
 		}
 		else if (question.Type == "Button" && question.Options != null && question.IsDropDown == true)
 		{
@@ -58,8 +57,27 @@
 		}
 		else if (question.Type == "File")
 		{
-			<label for="question-@question.Id">@question.Text</label>
-			<input type="file" class="form-control" name="@question.DisplayText" id="question-@question.Id" accept="image/*,.pdf,.doc,.docx" @(question.IsRequired ? "required" : "") />
+			<div class="file-upload" data-question-id="@question.Id">
+				<label>@question.Text</label>
+				<label class="upload-area" for="file-upload-@question.Id">
+					<div class="upload-icon">
+						<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M25 31.125V4.58331M25 4.58331L31.125 11.7291M25 4.58331L18.875 11.7291" stroke="#1C5493" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+							<path d="M16.834 45.4167H33.1673C38.9411 45.4167 41.8301 45.4167 43.6227 43.6241C45.4173 41.8274 45.4173 38.9425 45.4173 33.1667V31.125C45.4173 25.3512 45.4173 22.4643 43.6227 20.6696C42.0547 19.1016 39.6496 18.9036 35.209 18.8791M14.7923 18.8791C10.3517 18.9036 7.94661 19.1016 6.37861 20.6696C4.58398 22.4643 4.58398 25.3512 4.58398 31.125V33.1667C4.58398 38.9425 4.58398 41.8295 6.37861 43.6241C6.99111 44.2366 7.73019 44.6388 8.66732 44.9042" stroke="#1C5493" stroke-width="3" stroke-linecap="round" />
+						</svg>
+					</div>
+					<div class="upload-text">Перетащите файлы или нажмите для выбора</div>
+					<div class="format-hint">@question.Note</div>
+					<input type="file" id="file-upload-@question.Id" class="file-input" name="@question.DisplayText" accept="@question.Note" @(question.IsRequired ? "required" : "")>
+				</label>
+
+				<div class="uploaded-files">
+					<div class="uploaded-files-title">Загруженные файлы</div>
+					<div class="file-list" id="file-list-@question.Id">
+						<!-- Файлы будут добавляться здесь -->
+					</div>
+				</div>
+			</div>
 		}
 	}
 
@@ -68,6 +86,109 @@
 
 <script src="https://cdn.jsdelivr.net/npm/jsencrypt@3.0.0-rc.1/bin/jsencrypt.min.js"></script>
 <script>
+	document.addEventListener('DOMContentLoaded', function() {
+		// Инициализация всех загрузчиков файлов
+		const fileUploads = document.querySelectorAll('.file-upload');
+
+		fileUploads.forEach(uploadContainer => {
+			const questionId = uploadContainer.getAttribute('data-question-id');
+			const fileInput = uploadContainer.querySelector('.file-input');
+			const fileList = uploadContainer.querySelector('.file-list');
+			const uploadArea = uploadContainer.querySelector('.upload-area');
+
+			// Обработчик изменения файлов
+			fileInput.addEventListener('change', function() {
+				updateFileList(this, fileList);
+			});
+
+			// Обработчики drag and drop
+			uploadArea.addEventListener('dragover', function(e) {
+				e.preventDefault();
+				this.classList.add('dragover');
+			});
+
+			uploadArea.addEventListener('dragleave', function(e) {
+				e.preventDefault();
+				this.classList.remove('dragover');
+			});
+
+			uploadArea.addEventListener('drop', function(e) {
+				e.preventDefault();
+				this.classList.remove('dragover');
+
+				fileInput.files = e.dataTransfer.files;
+				updateFileList(fileInput, fileList);
+			});
+
+			// Инициализация при наличии файлов (если нужно сохранять при перезагрузке)
+			if (fileInput.files.length > 0) {
+				updateFileList(fileInput, fileList);
+			}
+		});
+
+		// Функция обновления списка файлов
+		function updateFileList(input, fileListContainer) {
+			// Очищаем список
+			fileListContainer.innerHTML = '';
+
+			// Добавляем каждый файл
+			Array.from(input.files).forEach((file, index) => {
+				const fileItem = document.createElement('div');
+				fileItem.className = 'file-item';
+				fileItem.dataset.fileIndex = index;
+
+				fileItem.innerHTML = `
+                <div>
+                    <span class="file-icon">📄</span>
+                    <span class="file-name">${file.name}</span>
+                    <span class="file-size">(${formatFileSize(file.size)})</span>
+                </div>
+                <button class="remove-file" title="Удалить">×</button>
+            `;
+
+				fileListContainer.appendChild(fileItem);
+
+				// Обработчик удаления файла
+				const removeBtn = fileItem.querySelector('.remove-file');
+				removeBtn.addEventListener('click', function() {
+					removeFileFromList(input, fileListContainer, index);
+				});
+			});
+		}
+
+		// Функция удаления файла из списка
+		function removeFileFromList(input, fileListContainer, index) {
+			const newFiles = Array.from(input.files).filter((_, i) => i !== index);
+
+			// Создаем новый FileList
+			const dataTransfer = new DataTransfer();
+			newFiles.forEach(file => dataTransfer.items.add(file));
+
+			// Обновляем input
+			input.files = dataTransfer.files;
+
+			// Обновляем список
+			updateFileList(input, fileListContainer);
+
+			// Если файлов не осталось, сбрасываем required (если нужно)
+			if (newFiles.length === 0 && input.hasAttribute('required')) {
+				input.setCustomValidity('Пожалуйста, выберите файл');
+			} else {
+				input.setCustomValidity('');
+			}
+		}
+
+		// Форматирование размера файла
+		function formatFileSize(bytes) {
+			if (bytes === 0) return '0 Bytes';
+			const k = 1024;
+			const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+			const i = Math.floor(Math.log(bytes) / Math.log(k));
+			return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+		}
+	});
+
+	// Оригинальная функция отправки формы (оставляем без изменений)
 	document.getElementById('form').onsubmit = function(event) {
 		event.preventDefault();
 
@@ -111,10 +232,8 @@
 	};
 
 	function submitEncrypted(data) {
-		
-
 		const encrypted = JSON.stringify(data);
-		
+
 		const encryptedData = {
 			FormId: '@Model.Id',
 			Data: encrypted
@@ -138,6 +257,3 @@
 			});
 	}
 </script>
-
-
-
