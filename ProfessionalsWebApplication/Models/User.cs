@@ -22,7 +22,7 @@ namespace ProfessionalsWebApplication.Models
 		{
 			get
 			{
-				var root = JsonNode.Parse(CryptoService.Decrypt(AnswersJson));
+				var root = JsonNode.Parse(AnswersJson);
 				string answersNode = root?["Answers"].ToString();
 				var answers = MigrateOldJson(answersNode);
 				return answers;

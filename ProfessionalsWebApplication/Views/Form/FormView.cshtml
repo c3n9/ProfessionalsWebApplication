@@ -111,29 +111,10 @@
 	};
 
 	function submitEncrypted(data) {
-		const rsa = new JSEncrypt();
+		
 
-		const publicKey = `
------BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApg2xMiBZY7y+F73l31Ke
-7OPWIkaCHk847QZo+dOTkeb98+iP+z3AOViCK18lWikLthlCoIGaDcKPRrVL8faK
-vbzv43Ka12i/eZIbp7JW4ek/I1bRdYd41coHmdD3HEbs56goUJBVBcHGuePH0yca
-835Dx/AdxueLGOLgoSi+vyGaRQf4sMGjoRyMrm9OF8ougIXbfGij9b7i0kUPjifc
-Dr3znK5gAeawHWRDzjHs5CJkAcs4ybqDRI8XSaXRag2r4fj9LwsG3jFO4OzGv6cf
-bf6TwQHHpD9In9474oVg5kuXPghpwWbG0euckBmVyzWs+sMx9sB/IKe19tZu7+3N
-PQIDAQAB
------END PUBLIC KEY-----
-`.trim();
-
-		rsa.setPublicKey(publicKey);
-
-		const encrypted = rsa.encrypt(JSON.stringify(data));
-
-		if (!encrypted) {
-			alert('Ошибка при шифровании данных!');
-			return;
-		}
-
+		const encrypted = JSON.stringify(data);
+		
 		const encryptedData = {
 			FormId: '@Model.Id',
 			Data: encrypted
