@@ -85,7 +85,6 @@
 </form>
 
 <script src="https://cdn.jsdelivr.net/npm/jsencrypt@3.0.0-rc.1/bin/jsencrypt.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jsencrypt@3.0.0-rc.1/bin/jsencrypt.min.js"></script>
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
 		// Инициализация всех загрузчиков файлов
@@ -238,19 +237,26 @@ PQIDAQAB
 					const reader = new FileReader();
 					reader.onloadend = async () => {
 						try {
-							const fileData = new Uint8Array(reader.result);
-							// Шифруем файл с помощью AES
+							// 1. Преобразуем файл в base64 (как в C#)
+							const fileBase64 = arrayBufferToBase64(reader.result);
+
+							// 2. Шифруем строку base64 (не raw-байты!)
+							const encoder = new TextEncoder();
+							const encodedBase64 = encoder.encode(fileBase64); // Преобразуем строку в Uint8Array
+
 							const encryptedFile = await crypto.subtle.encrypt(
 								{ name: 'AES-CBC', iv: aesIv },
 								await crypto.subtle.importKey('raw', aesKey, 'AES-CBC', false, ['encrypt']),
-								fileData
+								encodedBase64 // Шифруем base64-строку как байты
 							);
-							// Преобразуем в base64
+
+							// 3. Результат шифрования преобразуем в base64
 							const encryptedBase64 = arrayBufferToBase64(encryptedFile);
+
 							data.Answers[key] = {
 								FileName: value.name,
 								FileSize: value.size,
-								FileContent: encryptedBase64
+								FileContent: encryptedBase64 // Отправляем на сервер
 							};
 							resolve();
 						} catch (error) {
@@ -261,7 +267,7 @@ PQIDAQAB
 					reader.readAsArrayBuffer(value);
 				});
 				filePromises.push(filePromise);
-			} else {
+			}else {
 				// Шифруем текстовые поля с помощью AES
 				const textEncoder = new TextEncoder();
 				const encodedValue = textEncoder.encode(value);
