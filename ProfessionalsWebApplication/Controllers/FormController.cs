@@ -7,6 +7,10 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using ProfessionalsWebApplication.Enums;
 using ProfessionalsWebApplication.Models.DTO;
+using System.Security.Cryptography;
+using System.Text;
+
+
 
 namespace ProfessionalsWebApplication.Controllers
 {
@@ -36,6 +40,7 @@ namespace ProfessionalsWebApplication.Controllers
 		[HttpPost("submit")]
 		public async Task<IActionResult> SubmitFormDesctop([FromBody] EncryptedSubmissionDto encryptSubmission)
 		{
+			var decryptedKeyData = CryptoService.Decrypt(encryptSubmission.Key);
 			var newUser = new User()
 			{
 				FormId = encryptSubmission.FormId,
@@ -43,10 +48,31 @@ namespace ProfessionalsWebApplication.Controllers
 				Timestamp = DateTime.Now,
 			};
 			var answers = newUser.Answers;
+			var keyInfo = JsonSerializer.Deserialize<AesKeyInfo>(decryptedKeyData);
+			var decryptedData = DecryptAes(Convert.FromBase64String(answers[0].Value), Convert.FromBase64String(keyInfo.Key), Convert.FromBase64String(keyInfo.Iv));
 			HttpContext.Session.SetString("FormSubmitted", "true");
 			return Json(new { redirectUrl = Url.Action("thank-you", "forms") });
 		}
 		
+
+		public static string DecryptAes(byte[] encryptedData, byte[] key, byte[] iv)
+		{
+			using (Aes aes = Aes.Create())
+			{
+				aes.Key = key;
+				aes.IV = iv;
+				aes.Mode = CipherMode.CBC;
+				aes.Padding = PaddingMode.PKCS7;
+
+				using (ICryptoTransform decryptor = aes.CreateDecryptor())
+				using (MemoryStream ms = new MemoryStream(encryptedData))
+				using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+				using (StreamReader sr = new StreamReader(cs, Encoding.UTF8))
+				{
+					return sr.ReadToEnd(); // Возвращает расшифрованную строку
+				}
+			}
+		}
 		
 
 		[HttpGet("thank-you")]
