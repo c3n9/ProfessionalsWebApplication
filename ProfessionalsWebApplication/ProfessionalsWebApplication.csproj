@@ -27,13 +27,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Key\privateKey.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Folder Include="wwwroot\uploads\banners\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\uploads\banners\" />
+    <None Remove="Key\privateKey.xml" />
+    <EmbeddedResource Include="Key\privateKey.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
