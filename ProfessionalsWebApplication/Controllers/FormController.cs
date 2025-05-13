@@ -43,60 +43,20 @@ namespace ProfessionalsWebApplication.Controllers
         [HttpPost("submit")]
         public async Task<IActionResult> SubmitFormDesctop([FromBody] EncryptedSubmissionDto encryptSubmission)
         {
-            var decryptedKeyData = CryptoService.Decrypt(encryptSubmission.Key);
+            var decryptedKeyData = CryptoService.DecryptRSA(encryptSubmission.Key);
+            var keyInfo = JsonSerializer.Deserialize<AesKeyInfo>(decryptedKeyData);
             var newUser = new User()
             {
                 FormId = encryptSubmission.FormId,
                 AnswersJson = encryptSubmission.Data,
                 Timestamp = DateTime.Now,
+                Key = keyInfo.Key,  
+                Iv = keyInfo.Iv,
             };
             var answers = newUser.Answers;
-            var keyInfo = JsonSerializer.Deserialize<AesKeyInfo>(decryptedKeyData);
-            var g = answers[5].File;
-            var l = answers[1];
-            var decryptedData = DecryptAes(Convert.FromBase64String(g.FileContent),
-                Convert.FromBase64String(keyInfo.Key), Convert.FromBase64String(keyInfo.Iv));
-            
-            var decryptedData1 = DecryptAes(Convert.FromBase64String(l.Value),
-                Convert.FromBase64String(keyInfo.Key), Convert.FromBase64String(keyInfo.Iv));
-            
             HttpContext.Session.SetString("FormSubmitted", "true");
             return Json(new { redirectUrl = Url.Action("thank-you", "forms") });
         }
-        
-        
-
-
-        public static string DecryptAes(byte[] encryptedData, byte[] key, byte[] iv)
-        {
-            using (Aes aes = Aes.Create())
-            {
-                aes.Key = key;
-                aes.IV = iv;
-                aes.Mode = CipherMode.CBC;
-                aes.Padding = PaddingMode.PKCS7;
-
-                using (ICryptoTransform decryptor = aes.CreateDecryptor())
-                using (MemoryStream ms = new MemoryStream(encryptedData))
-                using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
-                using (StreamReader sr = new StreamReader(cs, Encoding.UTF8))
-                {
-                    return sr.ReadToEnd(); // Возвращает расшифрованную строку
-                }
-            }
-        }
-        
-        [HttpGet("download-file")]
-        public IActionResult DownloadFile(string encryptedData, string key, string iv, string fileName)
-        {
-            var decryptedData = Convert.FromBase64String(DecryptAes(
-                Convert.FromBase64String(encryptedData),
-                Convert.FromBase64String(key),
-                Convert.FromBase64String(iv)));
-    
-            return File(decryptedData, "application/octet-stream", fileName);
-        }
-
 
         [HttpGet("thank-you")]
         public IActionResult ThankYou()
