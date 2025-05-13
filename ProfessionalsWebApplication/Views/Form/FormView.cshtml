@@ -138,13 +138,13 @@
 				fileItem.dataset.fileIndex = index;
 
 				fileItem.innerHTML = `
-                <div>
-                    <span class="file-icon">📄</span>
-                    <span class="file-name">${file.name}</span>
-                    <span class="file-size">(${formatFileSize(file.size)})</span>
-                </div>
-                <button class="remove-file" title="Удалить">×</button>
-            `;
+                    <div>
+                        <span class="file-icon">📄</span>
+                        <span class="file-name">${file.name}</span>
+                        <span class="file-size">(${formatFileSize(file.size)})</span>
+                    </div>
+                    <button class="remove-file" title="Удалить">×</button>
+                `;
 
 				fileListContainer.appendChild(fileItem);
 
@@ -188,72 +188,121 @@
 		}
 	});
 
-	// Оригинальная функция отправки формы (оставляем без изменений)
-	document.getElementById('form').onsubmit = function(event) {
+	// Функция для преобразования ArrayBuffer в base64
+	function arrayBufferToBase64(buffer) {
+		let binary = '';
+		const bytes = new Uint8Array(buffer);
+		const len = bytes.byteLength;
+		for (let i = 0; i < len; i++) {
+			binary += String.fromCharCode(bytes[i]);
+		}
+		return window.btoa(binary);
+	}
+
+	// Новая функция отправки формы с base64
+	document.getElementById('form').onsubmit = async function(event) {
 		event.preventDefault();
 
-		let formData = new FormData(document.getElementById('form'));
-		let data = {
-			Answers: {},
-		};
+		const formData = new FormData(document.getElementById('form'));
+		const data = { Answers: {} };
+		const filePromises = [];
 
-		let filePromises = [];
+		// 1. Генерируем случайный AES-ключ и IV (Initialization Vector)
+		const aesKey = crypto.getRandomValues(new Uint8Array(32)); // 256-битный ключ
+		const aesIv = crypto.getRandomValues(new Uint8Array(16)); // 128-битный IV
 
-		formData.forEach((value, key) => {
+		// 2. Шифруем AES-ключ с помощью RSA
+		const rsa = new JSEncrypt();
+		const publicKey = `
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApg2xMiBZY7y+F73l31Ke
+7OPWIkaCHk847QZo+dOTkeb98+iP+z3AOViCK18lWikLthlCoIGaDcKPRrVL8faK
+vbzv43Ka12i/eZIbp7JW4ek/I1bRdYd41coHmdD3HEbs56goUJBVBcHGuePH0yca
+835Dx/AdxueLGOLgoSi+vyGaRQf4sMGjoRyMrm9OF8ougIXbfGij9b7i0kUPjifc
+Dr3znK5gAeawHWRDzjHs5CJkAcs4ybqDRI8XSaXRag2r4fj9LwsG3jFO4OzGv6cf
+bf6TwQHHpD9In9474oVg5kuXPghpwWbG0euckBmVyzWs+sMx9sB/IKe19tZu7+3N
+PQIDAQAB
+-----END PUBLIC KEY-----
+`.trim();
+		rsa.setPublicKey(publicKey);
+		const encryptedAesKey = rsa.encrypt(JSON.stringify({
+			Key: arrayBufferToBase64(aesKey),
+			Iv: arrayBufferToBase64(aesIv)
+		}));
+
+		// 3. Обрабатываем все поля формы
+		for (const [key, value] of formData.entries()) {
 			if (value instanceof File) {
-				let reader = new FileReader();
-				let filePromise = new Promise((resolve, reject) => {
-					reader.onloadend = function() {
-						data.Answers[key] = {
-							FileName: value.name,
-							FileSize: value.size,
-							FileContent: reader.result.split(',')[1],
-						};
-						resolve();
+				const filePromise = new Promise((resolve, reject) => {
+					const reader = new FileReader();
+					reader.onloadend = async () => {
+						try {
+							// 1. Преобразуем файл в base64 (как в C#)
+							const fileBase64 = arrayBufferToBase64(reader.result);
+
+							// 2. Шифруем строку base64 (не raw-байты!)
+							const encoder = new TextEncoder();
+							const encodedBase64 = encoder.encode(fileBase64); // Преобразуем строку в Uint8Array
+
+							const encryptedFile = await crypto.subtle.encrypt(
+								{ name: 'AES-CBC', iv: aesIv },
+								await crypto.subtle.importKey('raw', aesKey, 'AES-CBC', false, ['encrypt']),
+								encodedBase64 // Шифруем base64-строку как байты
+							);
+
+							// 3. Результат шифрования преобразуем в base64
+							const encryptedBase64 = arrayBufferToBase64(encryptedFile);
+
+							data.Answers[key] = {
+								FileName: value.name,
+								FileSize: value.size,
+								FileContent: encryptedBase64 // Отправляем на сервер
+							};
+							resolve();
+						} catch (error) {
+							reject(`Ошибка шифрования файла: ${error}`);
+						}
 					};
-					reader.onerror = function() {
-						reject('Ошибка при чтении файла');
-					};
-					reader.readAsDataURL(value);
+					reader.onerror = () => reject('Ошибка чтения файла');
+					reader.readAsArrayBuffer(value);
 				});
 				filePromises.push(filePromise);
-			} else {
-				data.Answers[key] = value;
+			}else {
+				// Шифруем текстовые поля с помощью AES
+				const textEncoder = new TextEncoder();
+				const encodedValue = textEncoder.encode(value);
+				const encryptedValue = await crypto.subtle.encrypt(
+					{ name: 'AES-CBC', iv: aesIv },
+					await crypto.subtle.importKey('raw', aesKey, 'AES-CBC', false, ['encrypt']),
+					encodedValue
+				);
+				// Преобразуем в base64
+				const encryptedBase64 = arrayBufferToBase64(encryptedValue);
+				data.Answers[key] = encryptedBase64;
 			}
-		});
+		}
 
-		Promise.all(filePromises)
-			.then(() => {
-				submitEncrypted(data);
-			})
-			.catch(error => {
-				alert("Ошибка при обработке файлов: " + error);
-			});
+		// 4. Отправляем данные на сервер
+		await Promise.all(filePromises);
+		submitEncrypted({
+			FormId: '@Model.Id',
+			Data: JSON.stringify(data),
+			Key: encryptedAesKey
+		});
 	};
 
-	function submitEncrypted(data) {
-		const encrypted = JSON.stringify(data);
-
-		const encryptedData = {
-			FormId: '@Model.Id',
-			Data: encrypted
-		};
-
-		fetch('/forms/submit', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(encryptedData)
-		})
-			.then(response => response.json())
-			.then(result => {
-				if (result.redirectUrl) {
-					window.location.href = result.redirectUrl;
-				}
-			})
-			.catch(error => {
-				console.error('Произошла ошибка:', error);
+	async function submitEncrypted(data) {
+		try {
+			const response = await fetch('/forms/submit', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(data)
 			});
+			const result = await response.json();
+			if (result.redirectUrl) window.location.href = result.redirectUrl;
+		} catch (error) {
+			console.error('Ошибка отправки:', error);
+			alert('Ошибка при отправке формы');
+		}
 	}
 </script>
