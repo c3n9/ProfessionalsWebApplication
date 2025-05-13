@@ -34,7 +34,7 @@ public class CompetitorsController : Controller
         }
 
         // Получаем путь из конфигурации
-        var imagesPath = fileStorageSettings?.Value?.BannerImagesPath ?? "uploads/competitors";
+        var imagesPath = fileStorageSettings?.Value?.CompetitorImagesPath ?? "uploads/competitors";
         // Комбинируем пути
         _competitorImagesPath = Path.Combine(webRoot, imagesPath);
         // Создаем целевую директорию

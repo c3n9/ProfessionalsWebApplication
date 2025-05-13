@@ -1,7 +1,48 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\quart\\source\\repos\\professionalswebapplication\\professionalswebapplication\\models\\settings\\filestoragesettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\settings\\filestoragesettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\quart\\source\\repos\\professionalswebapplication\\professionalswebapplication\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\quart\\source\\repos\\professionalswebapplication\\professionalswebapplication\\controllers\\competitorscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\controllers\\competitorscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\quart\\source\\repos\\professionalswebapplication\\professionalswebapplication\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\quart\\source\\repos\\professionalswebapplication\\professionalswebapplication\\models\\professionalsdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\professionalsdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\quart\\source\\repos\\professionalswebapplication\\professionalswebapplication\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\quart\\source\\repos\\professionalswebapplication\\professionalswebapplication\\models\\questionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\questionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\quart\\source\\repos\\professionalswebapplication\\professionalswebapplication\\models\\fileanswer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\fileanswer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\quart\\source\\repos\\professionalswebapplication\\professionalswebapplication\\models\\competitor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\competitor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|c:\\users\\quart\\source\\repos\\professionalswebapplication\\professionalswebapplication\\models\\competence.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F3C8CDE-88DE-4255-9044-830D1310B628}|ProfessionalsWebApplication\\ProfessionalsWebApplication.csproj|solutionrelative:professionalswebapplication\\models\\competence.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -18,6 +59,132 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FileStorageSettings.cs",
+              "DocumentMoniker": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\Settings\\FileStorageSettings.cs",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\Settings\\FileStorageSettings.cs",
+              "ToolTip": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\Settings\\FileStorageSettings.cs",
+              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\Settings\\FileStorageSettings.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T15:29:52.824Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\appsettings.json",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\appsettings.json",
+              "ToolTip": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\appsettings.json",
+              "RelativeToolTip": "ProfessionalsWebApplication\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-13T15:27:22.115Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Program.cs",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Program.cs",
+              "ToolTip": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Program.cs",
+              "RelativeToolTip": "ProfessionalsWebApplication\\Program.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAswEYAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T15:26:18.591Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CompetitorsController.cs",
+              "DocumentMoniker": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Controllers\\CompetitorsController.cs",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Controllers\\CompetitorsController.cs",
+              "ToolTip": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Controllers\\CompetitorsController.cs",
+              "RelativeToolTip": "ProfessionalsWebApplication\\Controllers\\CompetitorsController.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAcwCEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T15:24:02.064Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\User.cs",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\User.cs",
+              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-11T15:16:37.904Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "QuestionModel.cs",
+              "DocumentMoniker": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\QuestionModel.cs",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\QuestionModel.cs",
+              "ToolTip": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\QuestionModel.cs",
+              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\QuestionModel.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABcAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-11T15:14:26.515Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ProfessionalsDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\ProfessionalsDbContext.cs",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\ProfessionalsDbContext.cs",
+              "ToolTip": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\ProfessionalsDbContext.cs",
+              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\ProfessionalsDbContext.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAQAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-11T15:14:24.144Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FileAnswer.cs",
+              "DocumentMoniker": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\FileAnswer.cs",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\FileAnswer.cs",
+              "ToolTip": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\FileAnswer.cs",
+              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\FileAnswer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-11T15:13:20.401Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Competitor.cs",
+              "DocumentMoniker": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\Competitor.cs",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\Competitor.cs",
+              "ToolTip": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\Competitor.cs",
+              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\Competitor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-11T15:11:58.518Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Competence.cs",
+              "DocumentMoniker": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\Competence.cs",
+              "RelativeDocumentMoniker": "ProfessionalsWebApplication\\Models\\Competence.cs",
+              "ToolTip": "C:\\Users\\quart\\source\\repos\\ProfessionalsWebApplication\\ProfessionalsWebApplication\\Models\\Competence.cs",
+              "RelativeToolTip": "ProfessionalsWebApplication\\Models\\Competence.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-11T15:11:37.381Z"
             }
           ]
         }

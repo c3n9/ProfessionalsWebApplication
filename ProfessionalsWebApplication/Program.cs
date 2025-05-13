@@ -73,7 +73,7 @@ using (var scope = app.Services.CreateScope())
     // 3. Формируем путь с учетом возможного null
     var uploadsPath = Path.Combine(
         Directory.GetCurrentDirectory(),
-        fileStorageSettings?.BannerImagesPath ?? "uploads/competitors"
+        fileStorageSettings?.CompetitorImagesPath ?? "uploads/competitors"
     );
     // 4. Создаем директорию, если не существует
     if (!Directory.Exists(uploadsPath))
