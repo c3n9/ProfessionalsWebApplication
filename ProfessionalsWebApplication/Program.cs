@@ -95,6 +95,31 @@ using (var scope = app.Services.CreateScope())
     });
 }
 
+// 1. Создаем scope для доступа к сервисам
+using (var scope = app.Services.CreateScope())
+{
+    // 2. Получаем IOptions<FileStorageSettings> из DI-контейнера
+    var fileStorageSettings = scope.ServiceProvider
+        .GetRequiredService<IOptions<FileStorageSettings>>()
+        .Value;
+    // 3. Формируем путь с учетом возможного null
+    var uploadsPath = Path.Combine(
+        Directory.GetCurrentDirectory(),
+        fileStorageSettings?.CompetenceImagesPath ?? "uploads/competences"
+    );
+    // 4. Создаем директорию, если не существует
+    if (!Directory.Exists(uploadsPath))
+    {
+        Directory.CreateDirectory(uploadsPath);
+    }
+    // 5. Настраиваем доступ к статическим файлам
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        FileProvider = new PhysicalFileProvider(uploadsPath),
+        RequestPath = "/uploads/competences"
+    });
+}
+
 app.UseSession();
 
 if (app.Environment.IsDevelopment())
