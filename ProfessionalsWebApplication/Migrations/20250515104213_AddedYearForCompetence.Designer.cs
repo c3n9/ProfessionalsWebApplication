@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProfessionalsWebApplication.Models;
 
@@ -10,9 +11,11 @@ using ProfessionalsWebApplication.Models;
 namespace ProfessionalsWebApplication.Migrations
 {
     [DbContext(typeof(ProfessionalsDbContext))]
-    partial class ProfessionalsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250515104213_AddedYearForCompetence")]
+    partial class AddedYearForCompetence
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.14");
@@ -58,9 +61,6 @@ namespace ProfessionalsWebApplication.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Year")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
                     b.ToTable("Championships");
@@ -75,6 +75,9 @@ namespace ProfessionalsWebApplication.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

@@ -6,4 +6,5 @@ public class CompetenceDto
 {
     [Required]
     public string Name { get; set; }
+    
 }

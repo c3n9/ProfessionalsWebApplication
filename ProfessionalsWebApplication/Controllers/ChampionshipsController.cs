@@ -39,7 +39,8 @@ public class ChampionshipsController : Controller
 
         var championship = new Championship
         {
-            Name = championshipDto.Name
+            Name = championshipDto.Name,
+            Year = championshipDto.Year,
         };
 
         _context.Championships.Add(championship);
@@ -59,6 +60,7 @@ public class ChampionshipsController : Controller
             return NotFound("Чемпионат не найден.");
 
         existingChampionship.Name = championshipDto.Name;
+        existingChampionship.Year = championshipDto.Year;
 
         try
         {
