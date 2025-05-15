@@ -51,6 +51,7 @@ public class CompetitorsController : Controller
         {
             b.Id,
             b.FullName,
+            b.Group,
             b.CompetenceId,
             b.ChampionshipId,
             b.Place,
@@ -83,6 +84,7 @@ public class CompetitorsController : Controller
         var competitor = new Competitor()
         {
             FullName = сompetitorDto.FullName,
+            Group = сompetitorDto.Group,
             CompetenceId = сompetitorDto.CompetenceId,
             ChampionshipId = сompetitorDto.ChampionshipId,
             Place = сompetitorDto.Place,
@@ -96,6 +98,7 @@ public class CompetitorsController : Controller
         {
             competitor.Id,
             competitor.FullName,
+            competitor.Group,
             competitor.CompetenceId,
             competitor.ChampionshipId,
             competitor.Place,
@@ -134,6 +137,7 @@ public class CompetitorsController : Controller
         }
 
         existingCompetitor.FullName = bannerDto.FullName;
+        existingCompetitor.Group = bannerDto.Group;
         existingCompetitor.CompetenceId = bannerDto.CompetenceId;
         existingCompetitor.ChampionshipId = bannerDto.ChampionshipId;
         existingCompetitor.Place = bannerDto.Place;
@@ -145,6 +149,7 @@ public class CompetitorsController : Controller
             {
                 existingCompetitor.Id,
                 existingCompetitor.FullName,
+                existingCompetitor.Group,
                 existingCompetitor.ChampionshipId,
                 existingCompetitor.Place,
                 existingCompetitor.CompetenceId,

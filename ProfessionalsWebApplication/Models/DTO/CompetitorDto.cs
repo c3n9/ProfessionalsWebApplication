@@ -7,6 +7,8 @@ public class CompetitorDto
     [Required]
     public string FullName { get; set; }
     [Required]
+    public string Group { get; set; }
+    [Required]
     public int ChampionshipId { get; set; }
     [Required]
     public int CompetenceId { get; set; }
