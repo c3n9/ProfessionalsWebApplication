@@ -40,12 +40,12 @@ public class CompetitorsController : Controller
         // Создаем целевую директорию
         Directory.CreateDirectory(_competitorImagesPath);
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> GetCompetitors()
     {
         var competitors = await _context.Competitors.ToListAsync();
-            
+
         // Convert image paths to URLs
         var result = competitors.Select(b => new
         {
@@ -57,14 +57,14 @@ public class CompetitorsController : Controller
             b.Place,
             ImageUrl = GetImageUrl(b.ImageUrl)
         });
-            
+
         return Ok(result);
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> CreateBanner([FromForm] CompetitorDto сompetitorDto)
     {
-        if (!ModelState.IsValid) 
+        if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
         string imagePath = null;
@@ -72,13 +72,17 @@ public class CompetitorsController : Controller
         {
             var fileName = Guid.NewGuid().ToString() + Path.GetExtension(сompetitorDto.ImageFile.FileName);
             var filePath = Path.Combine(_competitorImagesPath, fileName);
-                
+
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await сompetitorDto.ImageFile.CopyToAsync(stream);
             }
-                
+
             imagePath = Path.Combine("uploads/competitors", fileName);
+        }
+        else
+        {
+            imagePath = "uploads/competitors/no-photo.png";
         }
 
         var competitor = new Competitor()
@@ -135,6 +139,10 @@ public class CompetitorsController : Controller
 
             existingCompetitor.ImageUrl = Path.Combine("uploads/competitors", fileName);
         }
+        else
+        {
+            existingCompetitor.ImageUrl = "uploads/competitors/no-photo.png";
+        }
 
         existingCompetitor.FullName = bannerDto.FullName;
         existingCompetitor.Group = bannerDto.Group;
@@ -178,10 +186,14 @@ public class CompetitorsController : Controller
 
         if (!string.IsNullOrEmpty(competitor.ImageUrl))
         {
-            var filePath = Path.Combine(_env.WebRootPath, competitor.ImageUrl);
-            if (System.IO.File.Exists(filePath))
+            var isDefaultImage = competitor.ImageUrl.EndsWith("default.png", StringComparison.OrdinalIgnoreCase);
+            if (!isDefaultImage)
             {
-                System.IO.File.Delete(filePath);
+                var filePath = Path.Combine(_env.WebRootPath, competitor.ImageUrl);
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
             }
         }
 

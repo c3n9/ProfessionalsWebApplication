@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\uploads\banners\" />
-    <Folder Include="wwwroot\uploads\competitors\" />
   </ItemGroup>
 
   <ItemGroup>

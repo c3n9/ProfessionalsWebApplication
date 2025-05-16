@@ -14,5 +14,5 @@ public class CompetitorDto
     public int CompetenceId { get; set; }
     [Required]
     public int Place  { get; set; }
-    public IFormFile ImageFile { get; set; }
+    public IFormFile? ImageFile { get; set; }
 }

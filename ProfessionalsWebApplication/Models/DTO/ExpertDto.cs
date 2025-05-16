@@ -11,7 +11,7 @@ namespace ProfessionalsWebApplication.Models.DTO
 		public string Post { get; set; }
 		[Required]
 		public int CompetenceId { get; set; }
-		public IFormFile ImageFile { get; set; }
+		public IFormFile? ImageFile { get; set; }
 
 	}
 }

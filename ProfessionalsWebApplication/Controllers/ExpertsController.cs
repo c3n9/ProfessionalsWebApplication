@@ -76,6 +76,10 @@ namespace ProfessionalsWebApplication.Controllers
 
 				imagePath = Path.Combine("uploads/experts", fileName);
 			}
+			else
+			{
+				imagePath = "uploads/experts/no-photo.png";
+			}
 
 			var expert = new Expert()
 			{
@@ -126,6 +130,10 @@ namespace ProfessionalsWebApplication.Controllers
 
 				existingExpert.ImageUrl = Path.Combine("uploads/experts", fileName);
 			}
+			else
+			{
+				existingExpert.ImageUrl = "uploads/experts/no-photo.png";
+			}
 
 			existingExpert.FullName = expertDto.FullName;
 			existingExpert.Post = expertDto.Post;
@@ -165,10 +173,14 @@ namespace ProfessionalsWebApplication.Controllers
 
 			if (!string.IsNullOrEmpty(expert.ImageUrl))
 			{
-				var filePath = Path.Combine(_env.WebRootPath, expert.ImageUrl);
-				if (System.IO.File.Exists(filePath))
+				var isDefaultImage = expert.ImageUrl.EndsWith("default.png", StringComparison.OrdinalIgnoreCase);
+				if (!isDefaultImage)
 				{
-					System.IO.File.Delete(filePath);
+					var filePath = Path.Combine(_env.WebRootPath, expert.ImageUrl);
+					if (System.IO.File.Exists(filePath))
+					{
+						System.IO.File.Delete(filePath);
+					}
 				}
 			}
 
@@ -176,6 +188,7 @@ namespace ProfessionalsWebApplication.Controllers
 			await _context.SaveChangesAsync();
 			return Ok();
 		}
+
 
 		private string GetImageUrl(string imagePath)
 		{
