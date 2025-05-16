@@ -5,5 +5,5 @@ public class FileStorageSettings
     public string BannerImagesPath { get; set; }
     public string CompetitorImagesPath { get; set; }
     public string CompetenceImagesPath { get; set; }
-
+    public string ExpertImagesPath { get; set; }
 }

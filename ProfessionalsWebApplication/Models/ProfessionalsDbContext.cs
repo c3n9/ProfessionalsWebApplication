@@ -17,6 +17,7 @@ namespace ProfessionalsWebApplication.Models
 		public DbSet<User> Users {  get; set; }
 		public DbSet<Banner> Banners {  get; set; }
 		public DbSet<Competitor> Competitors {  get; set; }
+		public DbSet<Expert> Experts {  get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
