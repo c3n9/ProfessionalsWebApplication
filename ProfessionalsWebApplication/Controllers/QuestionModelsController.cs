@@ -62,14 +62,7 @@ namespace ProfessionalsWebApplication.Controllers
 			_context.Questions.Add(questionModel);
 			await _context.SaveChangesAsync();
 
-			var baseUrl = $"{Request.Scheme}://{Request.Host}";
-			var questionUrl = $"{baseUrl}/api/QuestionModels/{questionModel.Id}";
-
-			return Created(questionUrl, new 
-			{
-				Question = questionModel,
-				Url = questionUrl
-			});
+			return Ok(questionModel); 
 		}
 
 		[HttpPut("{id}")]
@@ -102,14 +95,9 @@ namespace ProfessionalsWebApplication.Controllers
             try
             {
                 await _context.SaveChangesAsync();
-
-                var baseUrl = $"{Request.Scheme}://{Request.Host}";
-                var questionUrl = $"{baseUrl}/api/QuestionModels/{existingQuestion.Id}";
-
                 return Ok(new 
                 {
                     Question = existingQuestion,
-                    Url = questionUrl
                 });
             }
             catch (DbUpdateConcurrencyException)
