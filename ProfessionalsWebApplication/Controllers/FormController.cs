@@ -31,7 +31,7 @@ namespace ProfessionalsWebApplication.Controllers
             var form = _context.Forms
                 .Where(x => x.DateStart.Date <= DateTime.Now.Date && x.DateEnd.Date >= DateTime.Now.Date)
                 .Include(f => f.Questions).ToList().FirstOrDefault(x => x.Hash == hash);
-            if (form == null)
+            if (form == null || form.Questions.Count == 0)
             {
                 Response.StatusCode = 404;
                 return View("NotFoundView");
