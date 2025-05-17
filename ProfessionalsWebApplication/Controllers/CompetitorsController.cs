@@ -117,21 +117,45 @@ public class CompetitorsController : Controller
         if (existingCompetitor == null)
             return NotFound("Участник не найден.");
 
+        // Обработка изображения только если предоставлен новый файл
         if (bannerDto.ImageFile != null && bannerDto.ImageFile.Length > 0)
         {
+            string fileName;
+            bool isNewFile = true;
+
+            // Если у участника уже есть фото (и это не дефолтное), используем то же имя (но меняем расширение)
             if (!string.IsNullOrEmpty(existingCompetitor.ImageUrl))
             {
+                var currentFileNameWithoutExt = Path.GetFileNameWithoutExtension(existingCompetitor.ImageUrl);
+                if (!currentFileNameWithoutExt.Equals("no-photo", StringComparison.OrdinalIgnoreCase))
+                {
+                    fileName = currentFileNameWithoutExt + Path.GetExtension(bannerDto.ImageFile.FileName);
+                    isNewFile = false;
+                }
+                else
+                {
+                    fileName = Guid.NewGuid().ToString() + Path.GetExtension(bannerDto.ImageFile.FileName);
+                }
+            }
+            else
+            {
+                fileName = Guid.NewGuid().ToString() + Path.GetExtension(bannerDto.ImageFile.FileName);
+            }
+
+            var filePath = Path.Combine(_competitorImagesPath, fileName);
+
+            // Удаляем старое изображение, если оно существует и это не дефолтное
+            if (!isNewFile)
+            {
                 var oldFilePath = Path.Combine(_env.WebRootPath, existingCompetitor.ImageUrl);
-                if (System.IO.File.Exists(oldFilePath))
+                if (System.IO.File.Exists(oldFilePath) &&
+                    !oldFilePath.EndsWith("no-photo.png", StringComparison.OrdinalIgnoreCase))
                 {
                     System.IO.File.Delete(oldFilePath);
                 }
             }
 
-            // Save new image
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(bannerDto.ImageFile.FileName);
-            var filePath = Path.Combine(_competitorImagesPath, fileName);
-
+            // Сохраняем новое изображение
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await bannerDto.ImageFile.CopyToAsync(stream);
@@ -139,10 +163,7 @@ public class CompetitorsController : Controller
 
             existingCompetitor.ImageUrl = Path.Combine("uploads/competitors", fileName);
         }
-        else
-        {
-            existingCompetitor.ImageUrl = "uploads/competitors/no-photo.png";
-        }
+        // Если изображение не предоставлено, оставляем существующее (не меняем на no-photo)
 
         existingCompetitor.FullName = bannerDto.FullName;
         existingCompetitor.Group = bannerDto.Group;
@@ -186,7 +207,7 @@ public class CompetitorsController : Controller
 
         if (!string.IsNullOrEmpty(competitor.ImageUrl))
         {
-            var isDefaultImage = competitor.ImageUrl.EndsWith("default.png", StringComparison.OrdinalIgnoreCase);
+            var isDefaultImage = competitor.ImageUrl.EndsWith("no-photo.png", StringComparison.OrdinalIgnoreCase);
             if (!isDefaultImage)
             {
                 var filePath = Path.Combine(_env.WebRootPath, competitor.ImageUrl);

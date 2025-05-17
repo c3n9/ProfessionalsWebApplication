@@ -7,196 +7,218 @@ using ProfessionalsWebApplication.Models.Settings;
 
 namespace ProfessionalsWebApplication.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class ExpertsController : Controller
-	{
-		private readonly ProfessionalsDbContext _context;
-		private readonly IWebHostEnvironment _env;
-		private readonly string _expertImagesPath;
-		public ExpertsController(ProfessionalsDbContext context,
-		IWebHostEnvironment env,
-		IOptions<FileStorageSettings> fileStorageSettings)
-		{
-			_context = context;
-			_env = env;
-			var webRoot = _env.WebRootPath;
-			if (webRoot == null)
-			{
-				webRoot = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-				if (!Directory.Exists(webRoot))
-				{
-					Directory.CreateDirectory(webRoot);
-				}
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ExpertsController : Controller
+    {
+        private readonly ProfessionalsDbContext _context;
+        private readonly IWebHostEnvironment _env;
+        private readonly string _expertImagesPath;
 
-				_env.WebRootPath = webRoot;
-			}
+        public ExpertsController(ProfessionalsDbContext context,
+            IWebHostEnvironment env,
+            IOptions<FileStorageSettings> fileStorageSettings)
+        {
+            _context = context;
+            _env = env;
+            var webRoot = _env.WebRootPath;
+            if (webRoot == null)
+            {
+                webRoot = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+                if (!Directory.Exists(webRoot))
+                {
+                    Directory.CreateDirectory(webRoot);
+                }
 
-			// Получаем путь из конфигурации
-			var imagesPath = fileStorageSettings?.Value?.ExpertImagesPath ?? "uploads/experts";
-			// Комбинируем пути
-			_expertImagesPath = Path.Combine(webRoot, imagesPath);
-			// Создаем целевую директорию
-			Directory.CreateDirectory(_expertImagesPath);
-		}
+                _env.WebRootPath = webRoot;
+            }
 
-		[HttpGet]
-		public async Task<IActionResult> GetExperts()
-		{
-			var experts = await _context.Experts.ToListAsync();
+            // Получаем путь из конфигурации
+            var imagesPath = fileStorageSettings?.Value?.ExpertImagesPath ?? "uploads/experts";
+            // Комбинируем пути
+            _expertImagesPath = Path.Combine(webRoot, imagesPath);
+            // Создаем целевую директорию
+            Directory.CreateDirectory(_expertImagesPath);
+        }
 
-			var result = experts.Select(x => new
-			{
-				x.Id,
-				x.FullName,
-				x.Post,
-				x.CompetenceId,
-				ImageUrl = GetImageUrl(x.ImageUrl)
-			});
+        [HttpGet]
+        public async Task<IActionResult> GetExperts()
+        {
+            var experts = await _context.Experts.ToListAsync();
 
-			return Ok(result);
-		}
+            var result = experts.Select(x => new
+            {
+                x.Id,
+                x.FullName,
+                x.Post,
+                x.CompetenceId,
+                ImageUrl = GetImageUrl(x.ImageUrl)
+            });
 
-		[HttpPost]
-		public async Task<IActionResult> CreateExpert([FromForm] ExpertDto expertDto)
-		{
-			if (!ModelState.IsValid)
-				return BadRequest(ModelState);
+            return Ok(result);
+        }
 
-			string imagePath = null;
-			if (expertDto.ImageFile != null && expertDto.ImageFile.Length > 0)
-			{
-				var fileName = Guid.NewGuid().ToString() + Path.GetExtension(expertDto.ImageFile.FileName);
-				var filePath = Path.Combine(_expertImagesPath, fileName);
+        [HttpPost]
+        public async Task<IActionResult> CreateExpert([FromForm] ExpertDto expertDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-				using (var stream = new FileStream(filePath, FileMode.Create))
-				{
-					await expertDto.ImageFile.CopyToAsync(stream);
-				}
+            string imagePath = null;
+            if (expertDto.ImageFile != null && expertDto.ImageFile.Length > 0)
+            {
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(expertDto.ImageFile.FileName);
+                var filePath = Path.Combine(_expertImagesPath, fileName);
 
-				imagePath = Path.Combine("uploads/experts", fileName);
-			}
-			else
-			{
-				imagePath = "uploads/experts/no-photo.png";
-			}
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await expertDto.ImageFile.CopyToAsync(stream);
+                }
 
-			var expert = new Expert()
-			{
-				FullName = expertDto.FullName,
-				CompetenceId = expertDto.CompetenceId,
-				Post = expertDto.Post,
-				ImageUrl = imagePath,
-			};
+                imagePath = Path.Combine("uploads/experts", fileName);
+            }
+            else
+            {
+                imagePath = "uploads/experts/no-photo.png";
+            }
 
-			_context.Experts.Add(expert);
-			await _context.SaveChangesAsync();
+            var expert = new Expert()
+            {
+                FullName = expertDto.FullName,
+                CompetenceId = expertDto.CompetenceId,
+                Post = expertDto.Post,
+                ImageUrl = imagePath,
+            };
 
-			return CreatedAtAction(nameof(GetExperts), new { id = expert.Id }, new
-			{
-				expert.Id,
-				expert.FullName,
-				expert.Post,
-				expert.CompetenceId,
-				ImageUrl = GetImageUrl(expert.ImageUrl)
-			});
-		}
+            _context.Experts.Add(expert);
+            await _context.SaveChangesAsync();
 
-		[HttpPut("{id}")]
-		public async Task<IActionResult> UpdateExpert(int id, [FromForm] ExpertDto expertDto)
-		{
-			var existingExpert = await _context.Experts.FindAsync(id);
-			if (existingExpert == null)
-				return NotFound("Эксперт не найден.");
+            return CreatedAtAction(nameof(GetExperts), new { id = expert.Id }, new
+            {
+                expert.Id,
+                expert.FullName,
+                expert.Post,
+                expert.CompetenceId,
+                ImageUrl = GetImageUrl(expert.ImageUrl)
+            });
+        }
 
-			if (expertDto.ImageFile != null && expertDto.ImageFile.Length > 0)
-			{
-				if (!string.IsNullOrEmpty(existingExpert.ImageUrl))
-				{
-					var oldFilePath = Path.Combine(_env.WebRootPath, existingExpert.ImageUrl);
-					if (System.IO.File.Exists(oldFilePath))
-					{
-						System.IO.File.Delete(oldFilePath);
-					}
-				}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateExpert(int id, [FromForm] ExpertDto expertDto)
+        {
+            var existingExpert = await _context.Experts.FindAsync(id);
+            if (existingExpert == null)
+                return NotFound("Эксперт не найден.");
 
-				var fileName = Guid.NewGuid().ToString() + Path.GetExtension(expertDto.ImageFile.FileName);
-				var filePath = Path.Combine(_expertImagesPath, fileName);
+            if (expertDto.ImageFile != null && expertDto.ImageFile.Length > 0)
+            {
+                // Определяем имя файла
+                string fileName;
+                bool isNewFile = true;
 
-				using (var stream = new FileStream(filePath, FileMode.Create))
-				{
-					await expertDto.ImageFile.CopyToAsync(stream);
-				}
+                // Если у эксперта уже есть фото (и это не дефолтное), используем то же имя (но меняем расширение)
+                if (!string.IsNullOrEmpty(existingExpert.ImageUrl))
+                {
+                    var currentFileNameWithoutExt = Path.GetFileNameWithoutExtension(existingExpert.ImageUrl);
+                    if (!currentFileNameWithoutExt.Equals("no-photo", StringComparison.OrdinalIgnoreCase))
+                    {
+                        fileName = currentFileNameWithoutExt + Path.GetExtension(expertDto.ImageFile.FileName);
+                        isNewFile = false;
+                    }
+                    else
+                    {
+                        fileName = Guid.NewGuid().ToString() + Path.GetExtension(expertDto.ImageFile.FileName);
+                    }
+                }
+                else
+                {
+                    fileName = Guid.NewGuid().ToString() + Path.GetExtension(expertDto.ImageFile.FileName);
+                }
 
-				existingExpert.ImageUrl = Path.Combine("uploads/experts", fileName);
-			}
-			else
-			{
-				existingExpert.ImageUrl = "uploads/experts/no-photo.png";
-			}
+                var filePath = Path.Combine(_expertImagesPath, fileName);
 
-			existingExpert.FullName = expertDto.FullName;
-			existingExpert.Post = expertDto.Post;
-			existingExpert.CompetenceId = expertDto.CompetenceId;
+                // Удаляем старый файл, если он существует (кроме no-photo.png)
+                if (!isNewFile)
+                {
+                    var oldFilePath = Path.Combine(_env.WebRootPath, existingExpert.ImageUrl);
+                    if (System.IO.File.Exists(oldFilePath))
+                    {
+                        System.IO.File.Delete(oldFilePath);
+                    }
+                }
 
-			try
-			{
-				await _context.SaveChangesAsync();
-				return Ok(new
-				{
-					existingExpert.Id,
-					existingExpert.FullName,
-					existingExpert.Post,
-					existingExpert.CompetenceId,
-					ImageUrl = GetImageUrl(existingExpert.ImageUrl)
-				});
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				var entry = _context.Entry(existingExpert);
-				await entry.ReloadAsync();
-				if (entry.State == EntityState.Detached)
-					return NotFound("Эксперт был удалён.");
-				else
-					return Conflict("Конфликт версий. Данные были изменены другим пользователем.");
-			}
-		}
+                // Сохраняем файл
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await expertDto.ImageFile.CopyToAsync(stream);
+                }
 
-		[HttpDelete("{id}")]
-		public async Task<IActionResult> DeleteExpert(int id)
-		{
-			var expert = await _context.Experts.FindAsync(id);
-			if (expert == null)
-			{
-				return NotFound();
-			}
+                existingExpert.ImageUrl = Path.Combine("uploads/experts", fileName);
+            }
+            // Если изображение не предоставлено - оставляем текущее
 
-			if (!string.IsNullOrEmpty(expert.ImageUrl))
-			{
-				var isDefaultImage = expert.ImageUrl.EndsWith("default.png", StringComparison.OrdinalIgnoreCase);
-				if (!isDefaultImage)
-				{
-					var filePath = Path.Combine(_env.WebRootPath, expert.ImageUrl);
-					if (System.IO.File.Exists(filePath))
-					{
-						System.IO.File.Delete(filePath);
-					}
-				}
-			}
+            existingExpert.FullName = expertDto.FullName;
+            existingExpert.Post = expertDto.Post;
+            existingExpert.CompetenceId = expertDto.CompetenceId;
 
-			_context.Experts.Remove(expert);
-			await _context.SaveChangesAsync();
-			return Ok();
-		}
+            try
+            {
+                await _context.SaveChangesAsync();
+                return Ok(new
+                {
+                    existingExpert.Id,
+                    existingExpert.FullName,
+                    existingExpert.Post,
+                    existingExpert.CompetenceId,
+                    ImageUrl = GetImageUrl(existingExpert.ImageUrl)
+                });
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                var entry = _context.Entry(existingExpert);
+                await entry.ReloadAsync();
+                if (entry.State == EntityState.Detached)
+                    return NotFound("Эксперт был удалён.");
+                else
+                    return Conflict("Конфликт версий. Данные были изменены другим пользователем.");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteExpert(int id)
+        {
+            var expert = await _context.Experts.FindAsync(id);
+            if (expert == null)
+            {
+                return NotFound();
+            }
+
+            if (!string.IsNullOrEmpty(expert.ImageUrl))
+            {
+                var isDefaultImage = expert.ImageUrl.EndsWith("no-photo.png", StringComparison.OrdinalIgnoreCase);
+                if (!isDefaultImage)
+                {
+                    var filePath = Path.Combine(_env.WebRootPath, expert.ImageUrl);
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+                }
+            }
+
+            _context.Experts.Remove(expert);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
 
 
-		private string GetImageUrl(string imagePath)
-		{
-			if (string.IsNullOrEmpty(imagePath))
-				return null;
+        private string GetImageUrl(string imagePath)
+        {
+            if (string.IsNullOrEmpty(imagePath))
+                return null;
 
-			var request = HttpContext.Request;
-			return $"{request.Scheme}://{request.Host}/uploads/experts/{Path.GetFileName(imagePath)}";
-		}
-	}
+            var request = HttpContext.Request;
+            return $"{request.Scheme}://{request.Host}/uploads/experts/{Path.GetFileName(imagePath)}";
+        }
+    }
 }
