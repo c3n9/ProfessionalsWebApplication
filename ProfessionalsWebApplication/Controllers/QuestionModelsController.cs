@@ -29,6 +29,14 @@ namespace ProfessionalsWebApplication.Controllers
 			if (question == null) return NotFound("Такой вопрос не найдена.");
 			return Ok(question);
 		}
+		
+		[HttpGet("byTheme/{themeId}")]
+		public async Task<IActionResult> GetQuestionByTheme(int themeId)
+		{
+			var questions = await _context.Questions.Where(x => x.ThemeId == themeId).ToListAsync();
+			if (questions == null || questions.Count == 0) return NotFound("Вопросы не найдены.");
+			return Ok(questions);
+		}
 
 		[HttpPost]
 		public async Task<IActionResult> CreateQuestion([FromForm] QuestionModelDto questionDto)
