@@ -20,7 +20,7 @@ public class CompetenceDto
     public string Soft { get; set; } // Программное обеспечение/среда разработки
     
     [Required]
-    public string Tasks {get; set;} // Задачи
+    public List<string> Tasks {get; set;} // Задачи
     
     [Required]
     public IFormFile ImageFile { get; set; }

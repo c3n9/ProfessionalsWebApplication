@@ -22,7 +22,7 @@ public class Competence
     public string Soft { get; set; } // Программное обеспечение/среда разработки
     
     [Required]
-    public string Tasks {get; set;} // Задачи
+    public List<string> Tasks {get; set;} // Задачи
     
     [Required]
     public string ImageUrl { get; set; } 
