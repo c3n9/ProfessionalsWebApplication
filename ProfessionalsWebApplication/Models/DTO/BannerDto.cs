@@ -9,8 +9,7 @@ namespace ProfessionalsWebApplication.Models.DTO
 
 		public string Description { get; set; }
 
-		[Required]
-		public IFormFile ImageFile { get; set; } 
+		public IFormFile? ImageFile { get; set; } 
 
 		public string LinkToButton { get; set; }
 	}
