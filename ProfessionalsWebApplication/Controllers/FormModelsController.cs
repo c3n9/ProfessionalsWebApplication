@@ -30,6 +30,7 @@ namespace ProfessionalsWebApplication.Controllers
                 x.Name,
                 x.DateStart,
                 x.DateEnd,
+                x.IsVisible,
                 FormUrl = $"{Request.Scheme}://{Request.Host}" + $"/forms/{x.Hash}",
                 x.Questions
             }));
@@ -46,6 +47,7 @@ namespace ProfessionalsWebApplication.Controllers
                 form.Name,
                 form.DateStart,
                 form.DateEnd,
+                form.IsVisible,
                 FormUrl = $"{Request.Scheme}://{Request.Host}" + $"/forms/{form.Hash}",
                 form.Questions,
             });
@@ -82,6 +84,7 @@ namespace ProfessionalsWebApplication.Controllers
                 formModel.Name,
                 formModel.DateStart,
                 formModel.DateEnd,
+                formModel.IsVisible,
                 FormUrl = $"{Request.Scheme}://{Request.Host}" + $"/forms/{formModel.Hash}",
             });
         }
@@ -113,6 +116,47 @@ namespace ProfessionalsWebApplication.Controllers
                     existingForm.Id,
                     existingForm.Name,
                     existingForm.DateStart,
+                    existingForm.DateEnd,
+                    existingForm.IsVisible,
+                    FormUrl = $"{baseUrl}/forms/{existingForm.Hash}",
+                });
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                var entry = _context.Entry(existingForm);
+                await entry.ReloadAsync();
+
+                if (entry.State == EntityState.Detached)
+                    return NotFound("Форма была удалена.");
+                else
+                    return Conflict("Конфликт версий. Данные были изменены другим пользователем.");
+            }
+        }
+        
+        [HttpPut("updateactive/{id}")]
+        public async Task<IActionResult> UpdateFormActiveForm(int id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var existingForm = await _context.Forms.FindAsync(id);
+            if (existingForm == null)
+                return NotFound("Форма не найдена.");
+
+            try
+            {
+                existingForm.IsVisible = !existingForm.IsVisible;
+                await _context.SaveChangesAsync();
+
+                var baseUrl = $"{Request.Scheme}://{Request.Host}";
+                var formUrl = $"{baseUrl}/forms/{existingForm.Hash}";
+
+                return Ok(new
+                {
+                    existingForm.Id,
+                    existingForm.Name,
+                    existingForm.DateStart,
+                    existingForm.IsVisible,
                     existingForm.DateEnd,
                     FormUrl = $"{baseUrl}/forms/{existingForm.Hash}",
                 });
