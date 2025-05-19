@@ -4,20 +4,21 @@ namespace ProfessionalsWebApplication.Models
 {
 	public class ProfessionalsDbContext : DbContext
 	{
-		public ProfessionalsDbContext(DbContextOptions<ProfessionalsDbContext> options) : base(options) 
+		public ProfessionalsDbContext(DbContextOptions<ProfessionalsDbContext> options) : base(options)
 		{
 
 		}
 		public DbSet<FormModel> Forms { get; set; }
-		
+
 		public DbSet<Championship> Championships { get; set; }
 		public DbSet<Competence> Competences { get; set; }
 		public DbSet<QuestionModel> Questions { get; set; }
 
-		public DbSet<User> Users {  get; set; }
-		public DbSet<Banner> Banners {  get; set; }
-		public DbSet<Competitor> Competitors {  get; set; }
-		public DbSet<Expert> Experts {  get; set; }
+		public DbSet<User> Users { get; set; }
+		public DbSet<Banner> Banners { get; set; }
+		public DbSet<Competitor> Competitors { get; set; }
+		public DbSet<Expert> Experts { get; set; }
+		public DbSet<Link> Links { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
