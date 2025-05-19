@@ -22,6 +22,5 @@ public class CompetenceDto
     [Required]
     public List<string> Tasks {get; set;} // Задачи
     
-    [Required]
-    public IFormFile ImageFile { get; set; }
+    public IFormFile? ImageFile { get; set; }
 }
