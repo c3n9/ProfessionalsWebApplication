@@ -29,7 +29,7 @@ namespace ProfessionalsWebApplication.Controllers
         public IActionResult GetForm(string hash)
         {
             var form = _context.Forms
-                .Where(x => x.DateStart.Date <= DateTime.Now.Date && x.DateEnd.Date >= DateTime.Now.Date)
+                .Where(x => (x.DateStart.Date <= DateTime.Now.Date && x.DateEnd.Date >= DateTime.Now.Date) && x.IsVisible)
                 .Include(f => f.Questions).ToList().FirstOrDefault(x => x.Hash == hash);
             if (form == null || form.Questions.Count == 0)
             {
