@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProfessionalsWebApplication.Models;
 using ProfessionalsWebApplication.Models.DTO;
@@ -44,6 +45,7 @@ namespace ProfessionalsWebApplication.Controllers
 			return Ok(result);
 		}
 
+		[Authorize]
 		[HttpPut("{id}")]
 		public async Task<IActionResult> UpdateLink(int id, [FromForm] LinkDto linkDto)
 		{

@@ -4,6 +4,7 @@ using ProfessionalsWebApplication.Models;
 using ProfessionalsWebApplication.Models.DTO;
 using Microsoft.Extensions.Options;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 using ProfessionalsWebApplication.Models.Settings;
 
 namespace ProfessionalsWebApplication.Controllers
@@ -64,6 +65,7 @@ namespace ProfessionalsWebApplication.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateBanner([FromForm] BannerDto bannerDto)
         {
@@ -109,6 +111,7 @@ namespace ProfessionalsWebApplication.Controllers
             });
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBanner(int id, [FromForm] BannerDto bannerDto)
         {
@@ -172,6 +175,7 @@ namespace ProfessionalsWebApplication.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBanner(int id)
         {

@@ -5,6 +5,7 @@ using ProfessionalsWebApplication.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using ProfessionalsWebApplication.Models.DTO;
 
 namespace ProfessionalsWebApplication.Controllers
@@ -52,7 +53,8 @@ namespace ProfessionalsWebApplication.Controllers
                 form.Questions,
             });
         }
-
+        
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateForm([FromForm] FormModelDto formModelDto)
         {
@@ -89,6 +91,7 @@ namespace ProfessionalsWebApplication.Controllers
             });
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateForm(int id, [FromForm] FormModelDto formModelDto)
         {
@@ -133,6 +136,7 @@ namespace ProfessionalsWebApplication.Controllers
             }
         }
         
+        [Authorize]
         [HttpPut("updateactive/{id}")]
         public async Task<IActionResult> UpdateFormActiveForm(int id)
         {
@@ -173,6 +177,7 @@ namespace ProfessionalsWebApplication.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteForm(int id)
         {

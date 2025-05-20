@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -61,6 +62,7 @@ public class CompetitorsController : Controller
         return Ok(result);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> CreateBanner([FromForm] CompetitorDto сompetitorDto)
     {
@@ -110,6 +112,7 @@ public class CompetitorsController : Controller
         });
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateCompetitor(int id, [FromForm] CompetitorDto bannerDto)
     {
@@ -196,6 +199,7 @@ public class CompetitorsController : Controller
         }
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteCompetitor(int id)
     {
