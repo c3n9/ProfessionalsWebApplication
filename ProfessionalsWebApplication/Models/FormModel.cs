@@ -17,5 +17,6 @@ namespace ProfessionalsWebApplication.Models
         [Required]
         public DateTime DateEnd { get; set; }
         public List<QuestionModel> Questions { get; set; } = new();
+        public List<User> Users { get; set; } = new();
     }
 }

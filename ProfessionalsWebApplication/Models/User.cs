@@ -11,7 +11,9 @@ namespace ProfessionalsWebApplication.Models
     public class User
     {
         [Key] public int Id { get; set; }
-        [Required] public int FormId { get; set; }
+        [Required] [ForeignKey(nameof(FormModel))] public int FormModelId { get; set; }
+        [ForeignKey(nameof(Competence))] public int CompetenceId { get; set; }
+        public FormModel FormModel { get; set; }
         public string Key { get; set; }
         public string Iv { get; set; }
         public string AnswersJson { get; set; }

@@ -47,13 +47,14 @@ namespace ProfessionalsWebApplication.Controllers
             var keyInfo = JsonSerializer.Deserialize<AesKeyInfo>(decryptedKeyData);
             var newUser = new User()
             {
-                FormId = encryptSubmission.FormId,
+                FormModelId = encryptSubmission.FormId,
                 AnswersJson = encryptSubmission.Data,
                 Timestamp = DateTime.Now,
                 Key = keyInfo.Key,  
                 Iv = keyInfo.Iv,
             };
-            var answers = newUser.Answers;
+            _context.Users.Add(newUser);
+            await _context.SaveChangesAsync();
             HttpContext.Session.SetString("FormSubmitted", "true");
             return Json(new { redirectUrl = Url.Action("thank-you", "forms") });
         }
