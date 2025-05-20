@@ -39,10 +39,11 @@ namespace ProfessionalsWebApplication.Controllers
             Directory.CreateDirectory(tempFolder);
             Directory.CreateDirectory(filesRootFolder);
 
+            var zipFile = Path.Combine(Path.GetTempPath(), $"report_{form.Name}_{Guid.NewGuid()}.zip");
+
             try
             {
-                // Создаем Excel файл с помощью NPOI
-                var excelFile = Path.Combine(tempFolder, $"report_{formId}.xlsx");
+                var excelFile = Path.Combine(tempFolder, $"report_{form.Name}.xlsx");
                 IWorkbook workbook = new XSSFWorkbook();
                 ISheet worksheet = workbook.CreateSheet("Responses");
 
@@ -89,7 +90,6 @@ namespace ProfessionalsWebApplication.Controllers
                     row.CreateCell(0).SetCellValue(user.Id);
                     row.CreateCell(1).SetCellValue(user.Timestamp.ToString("g"));
 
-                    // Папка для файлов этого пользователя
                     var userFilesFolder = Path.Combine(filesRootFolder, $"Files_{user.Id}");
                     Directory.CreateDirectory(userFilesFolder);
 
@@ -107,46 +107,73 @@ namespace ProfessionalsWebApplication.Controllers
                             var safeFileName = Path.GetFileName(fileAnswer.FileName);
                             var filePath = Path.Combine(userFilesFolder, safeFileName);
                             await System.IO.File.WriteAllBytesAsync(filePath, Convert.FromBase64String(fileAnswer.FileContent));
-
-                            // ОТНОСИТЕЛЬНЫЙ ПУТЬ ВНУТРИ АРХИВА
-                            var relativePath = $"Files/Files_{user.Id}/{safeFileName}";
+                            
+                            var relativePath = $"Files/Files_{user.Id}/{safeFileName}"; // ОТНОСИТЕЛЬНЫЙ ПУТЬ ВНУТРИ АРХИВА
 
                             var linkCell = row.CreateCell(col);
                             linkCell.SetCellValue($"📎 {safeFileName}");
 
                             var link = workbook.GetCreationHelper().CreateHyperlink(HyperlinkType.File);
-                            link.Address = relativePath; // Используем относительный путь
+                            link.Address = relativePath;
                             linkCell.Hyperlink = link;
                             linkCell.CellStyle = linkStyle;
                         }
                     }
                 }
 
-                // Автонастройка ширины столбцов
                 for (int i = 0; i < headerRow.LastCellNum; i++)
                 {
                     worksheet.AutoSizeColumn(i);
                 }
 
-                // Сохраняем Excel
                 using (var fileStream = new FileStream(excelFile, FileMode.Create))
                 {
                     workbook.Write(fileStream);
                 }
 
-                // Создаем ZIP архив
-                var zipFile = Path.Combine(Path.GetTempPath(), $"report_{formId}.zip");
                 ZipFile.CreateFromDirectory(tempFolder, zipFile, CompressionLevel.Optimal, false);
 
-                // Возвращаем файл
-                var fileStreamResult = new FileStream(zipFile, FileMode.Open, FileAccess.Read);
-                return File(fileStreamResult, "application/zip", $"report_{formId}.zip");
+                var fileStreamResult = new FileStreamResult(new FileStream(zipFile, FileMode.Open, FileAccess.Read, FileShare.Delete), "application/zip")
+                {
+                    FileDownloadName = $"report_{form.Name}.zip"
+                };
+
+                Response.OnCompleted(async () =>
+                {
+                    try
+                    {
+                        fileStreamResult.FileStream.Dispose();
+                        if (Directory.Exists(tempFolder))
+                        {
+                            Directory.Delete(tempFolder, true);
+                        }
+                        if (System.IO.File.Exists(zipFile))
+                        {
+                            System.IO.File.Delete(zipFile);
+                        }
+                    }
+                    catch { }
+                });
+
+                return fileStreamResult;
             }
-            finally
+            catch
             {
-                // Удаляем временные файлы после отправки
-                try { Directory.Delete(tempFolder, true); }
-                catch { /* Игнорируем ошибки удаления */ }
+                try
+                {
+                    if (Directory.Exists(tempFolder))
+                    {
+                        Directory.Delete(tempFolder, true);
+                    }
+
+                    if (System.IO.File.Exists(zipFile))
+                    {
+                        System.IO.File.Delete(zipFile);
+                    }
+                }
+                catch { }
+
+                throw;
             }
         }
     }
