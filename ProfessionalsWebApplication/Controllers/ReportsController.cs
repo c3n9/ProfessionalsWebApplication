@@ -33,13 +33,13 @@ namespace ProfessionalsWebApplication.Controllers
             if (form.Users == null || !form.Users.Any())
                 return NotFound("Результатов по этой форме нет");
 
+            bool hasFileAnswers = form.Users
+                .SelectMany(u => u.Answers)
+                .Any(a => a.Type == AnswerType.File && a.File != null);
+
             // Создаем временную структуру папок
             var tempFolder = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
-            var filesRootFolder = Path.Combine(tempFolder, "Files");
             Directory.CreateDirectory(tempFolder);
-            Directory.CreateDirectory(filesRootFolder);
-
-            var zipFile = Path.Combine(Path.GetTempPath(), $"report_{form.Name}_{Guid.NewGuid()}.zip");
 
             try
             {
@@ -81,6 +81,13 @@ namespace ProfessionalsWebApplication.Controllers
                     cell.CellStyle = headerStyle;
                 }
 
+                string filesRootFolder = null;
+                if (hasFileAnswers)
+                {
+                    filesRootFolder = Path.Combine(tempFolder, "Files");
+                    Directory.CreateDirectory(filesRootFolder);
+                }
+
                 // Заполняем данные
                 for (int rowIdx = 0; rowIdx < form.Users.Count; rowIdx++)
                 {
@@ -90,9 +97,6 @@ namespace ProfessionalsWebApplication.Controllers
                     row.CreateCell(0).SetCellValue(user.Id);
                     row.CreateCell(1).SetCellValue(user.Timestamp.ToString("g"));
 
-                    var userFilesFolder = Path.Combine(filesRootFolder, $"Files_{user.Id}");
-                    Directory.CreateDirectory(userFilesFolder);
-
                     foreach (var answer in user.Answers)
                     {
                         var col = allQuestions.IndexOf(answer.Question) + 2;
@@ -101,14 +105,17 @@ namespace ProfessionalsWebApplication.Controllers
                         {
                             row.CreateCell(col).SetCellValue(answer.Value);
                         }
-                        else if (answer.Type == AnswerType.File && answer.File != null)
+                        else if (answer.Type == AnswerType.File && answer.File != null && hasFileAnswers)
                         {
+                            var userFilesFolder = Path.Combine(filesRootFolder, $"Files_{user.Id}");
+                            Directory.CreateDirectory(userFilesFolder);
+
                             var fileAnswer = answer.File;
                             var safeFileName = Path.GetFileName(fileAnswer.FileName);
                             var filePath = Path.Combine(userFilesFolder, safeFileName);
                             await System.IO.File.WriteAllBytesAsync(filePath, Convert.FromBase64String(fileAnswer.FileContent));
-                            
-                            var relativePath = $"Files/Files_{user.Id}/{safeFileName}"; // ОТНОСИТЕЛЬНЫЙ ПУТЬ ВНУТРИ АРХИВА
+
+                            var relativePath = $"Files/Files_{user.Id}/{safeFileName}";
 
                             var linkCell = row.CreateCell(col);
                             linkCell.SetCellValue($"📎 {safeFileName}");
@@ -118,61 +125,78 @@ namespace ProfessionalsWebApplication.Controllers
                             linkCell.Hyperlink = link;
                             linkCell.CellStyle = linkStyle;
                         }
+                        else if (answer.Type == AnswerType.File)
+                        {
+                            row.CreateCell(col).SetCellValue("📎 (файл)");
+                        }
                     }
                 }
 
+                // Автонастройка ширины столбцов
                 for (int i = 0; i < headerRow.LastCellNum; i++)
                 {
                     worksheet.AutoSizeColumn(i);
                 }
 
+                // Сохраняем Excel файл
                 using (var fileStream = new FileStream(excelFile, FileMode.Create))
                 {
                     workbook.Write(fileStream);
                 }
 
-                ZipFile.CreateFromDirectory(tempFolder, zipFile, CompressionLevel.Optimal, false);
-
-                var fileStreamResult = new FileStreamResult(new FileStream(zipFile, FileMode.Open, FileAccess.Read, FileShare.Delete), "application/zip")
+                // Если есть файловые ответы - возвращаем ZIP, иначе - Excel
+                if (hasFileAnswers)
                 {
-                    FileDownloadName = $"report_{form.Name}.zip"
-                };
+                    var zipFile = Path.Combine(Path.GetTempPath(), $"report_{form.Name}_{Guid.NewGuid()}.zip");
+                    ZipFile.CreateFromDirectory(tempFolder, zipFile, CompressionLevel.Optimal, false);
 
-                Response.OnCompleted(async () =>
-                {
-                    try
+                    var fileStream = new FileStream(zipFile, FileMode.Open, FileAccess.Read, FileShare.Delete);
+                    var fileStreamResult = new FileStreamResult(fileStream, "application/zip")
                     {
-                        fileStreamResult.FileStream.Dispose();
-                        if (Directory.Exists(tempFolder))
+                        FileDownloadName = $"report_{form.Name}.zip"
+                    };
+
+                    Response.OnCompleted(async () =>
+                    {
+                        try
                         {
+                            fileStream.Dispose();
                             Directory.Delete(tempFolder, true);
-                        }
-                        if (System.IO.File.Exists(zipFile))
-                        {
                             System.IO.File.Delete(zipFile);
                         }
-                    }
-                    catch { }
-                });
+                        catch { }
+                    });
 
-                return fileStreamResult;
+                    return fileStreamResult;
+                }
+                else
+                {
+                    var fileStream = new FileStream(excelFile, FileMode.Open, FileAccess.Read, FileShare.Delete);
+                    var fileStreamResult = new FileStreamResult(fileStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                    {
+                        FileDownloadName = $"report_{form.Name}.xlsx"
+                    };
+
+                    Response.OnCompleted(async () =>
+                    {
+                        try
+                        {
+                            fileStream.Dispose();
+                            Directory.Delete(tempFolder, true);
+                        }
+                        catch { }
+                    });
+
+                    return fileStreamResult;
+                }
             }
             catch
             {
                 try
                 {
-                    if (Directory.Exists(tempFolder))
-                    {
-                        Directory.Delete(tempFolder, true);
-                    }
-
-                    if (System.IO.File.Exists(zipFile))
-                    {
-                        System.IO.File.Delete(zipFile);
-                    }
+                    Directory.Delete(tempFolder, true);
                 }
                 catch { }
-
                 throw;
             }
         }
