@@ -64,7 +64,7 @@ namespace ProfessionalsWebApplication.Controllers
 
                 // Заголовки
                 var headerRow = worksheet.CreateRow(0);
-                headerRow.CreateCell(0).SetCellValue("ID");
+                headerRow.CreateCell(0).SetCellValue("№");
                 headerRow.CreateCell(1).SetCellValue("Дата и время");
 
                 // Получаем все уникальные вопросы
@@ -94,7 +94,7 @@ namespace ProfessionalsWebApplication.Controllers
                     var user = form.Users[rowIdx];
                     var row = worksheet.CreateRow(rowIdx + 1);
 
-                    row.CreateCell(0).SetCellValue(user.Id);
+                    row.CreateCell(0).SetCellValue(rowIdx + 1);
                     row.CreateCell(1).SetCellValue(user.Timestamp.ToString("g"));
 
                     foreach (var answer in user.Answers)
@@ -108,7 +108,7 @@ namespace ProfessionalsWebApplication.Controllers
                         }
                         else if (answer.Type == AnswerType.File && answer.File != null && hasFileAnswers)
                         {
-                            var userFilesFolder = Path.Combine(filesRootFolder, $"Files_{user.Id}");
+                            var userFilesFolder = Path.Combine(filesRootFolder, $"Files_{rowIdx + 1}");
                             Directory.CreateDirectory(userFilesFolder);
 
                             var fileAnswer = answer.File;
@@ -116,7 +116,7 @@ namespace ProfessionalsWebApplication.Controllers
                             var filePath = Path.Combine(userFilesFolder, safeFileName);
                             await System.IO.File.WriteAllBytesAsync(filePath, Convert.FromBase64String(fileAnswer.FileContent));
 
-                            var relativePath = $"Files/Files_{user.Id}/{safeFileName}";
+                            var relativePath = $"Files/Files_{rowIdx + 1}/{safeFileName}";
 
                             cell.SetCellValue($"📎 {safeFileName}");
 
