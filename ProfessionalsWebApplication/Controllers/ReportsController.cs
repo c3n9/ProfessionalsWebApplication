@@ -100,10 +100,11 @@ namespace ProfessionalsWebApplication.Controllers
                     foreach (var answer in user.Answers)
                     {
                         var col = allQuestions.IndexOf(answer.Question) + 2;
+                        var cell = row.GetCell(col) ?? row.CreateCell(col); // Получаем существующую ячейку или создаем новую
 
                         if (answer.Type == AnswerType.Text)
                         {
-                            row.CreateCell(col).SetCellValue(answer.Value);
+                            cell.SetCellValue(answer.Value);
                         }
                         else if (answer.Type == AnswerType.File && answer.File != null && hasFileAnswers)
                         {
@@ -117,17 +118,16 @@ namespace ProfessionalsWebApplication.Controllers
 
                             var relativePath = $"Files/Files_{user.Id}/{safeFileName}";
 
-                            var linkCell = row.CreateCell(col);
-                            linkCell.SetCellValue($"📎 {safeFileName}");
+                            cell.SetCellValue($"📎 {safeFileName}");
 
                             var link = workbook.GetCreationHelper().CreateHyperlink(HyperlinkType.File);
                             link.Address = relativePath;
-                            linkCell.Hyperlink = link;
-                            linkCell.CellStyle = linkStyle;
+                            cell.Hyperlink = link;
+                            cell.CellStyle = linkStyle;
                         }
                         else if (answer.Type == AnswerType.File)
                         {
-                            row.CreateCell(col).SetCellValue("📎 (файл)");
+                            cell.SetCellValue("📎 (файл)");
                         }
                     }
                 }
