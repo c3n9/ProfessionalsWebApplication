@@ -20,7 +20,8 @@ namespace ProfessionalsWebApplication.Controllers
         private readonly string _vkAccessToken;
         private readonly ProfessionalsDbContext _context;
 
-        public VKPhotosController(IHttpClientFactory httpClientFactory, IConfiguration configuration, ProfessionalsDbContext context)
+        public VKPhotosController(IHttpClientFactory httpClientFactory, IConfiguration configuration,
+            ProfessionalsDbContext context)
         {
             _httpClientFactory = httpClientFactory;
             _vkAccessToken = configuration["VK:AccessToken"];
@@ -53,7 +54,8 @@ namespace ProfessionalsWebApplication.Controllers
             var (isValid, ownerId, albumIdFromUrl) = ParseVKAlbumUrl(vkAlbumDto.Url);
             if (!isValid)
             {
-                return BadRequest("Некорректная ссылка на альбом VK. Ожидается формат: https://vk.com/album-XXXXXX_YYYYYYY");
+                return BadRequest(
+                    "Некорректная ссылка на альбом VK. Ожидается формат: https://vk.com/album-XXXXXX_YYYYYYY");
             }
 
             var vkAlbum = new VKAlbum
@@ -86,7 +88,8 @@ namespace ProfessionalsWebApplication.Controllers
             var (isValid, ownerId, albumIdFromUrl) = ParseVKAlbumUrl(vkAlbumDto.Url);
             if (!isValid)
             {
-                return BadRequest("Некорректная ссылка на альбом VK. Ожидается формат: https://vk.com/album-XXXXXX_YYYYYYY");
+                return BadRequest(
+                    "Некорректная ссылка на альбом VK. Ожидается формат: https://vk.com/album-XXXXXX_YYYYYYY");
             }
 
             var existingVKAlbum = await _context.VKAlbums.FindAsync(albumId);
@@ -133,6 +136,7 @@ namespace ProfessionalsWebApplication.Controllers
             {
                 return (false, 0, 0);
             }
+
             return (true, -ownerId, albumId);
         }
 
@@ -151,7 +155,7 @@ namespace ProfessionalsWebApplication.Controllers
         }
 
         [HttpGet("public/{vkAlbumId}")]
-        //[ResponseCache(Duration = 3600)] // Кеширование на 1 час
+        [ResponseCache(Duration = 3600, Location = ResponseCacheLocation.Any, NoStore = false)]
         public async Task<ActionResult<IEnumerable<VkPhotoResponse>>> GetPublicAlbumPhotos(int vkAlbumId)
         {
             try
@@ -159,25 +163,30 @@ namespace ProfessionalsWebApplication.Controllers
                 var album = _context.VKAlbums.FirstOrDefault(x => x.Id == vkAlbumId);
 
                 if (album == null)
+                {
+                    Response.Headers["Cache-Control"] = "no-store, no-cache";
+                    Response.Headers["Pragma"] = "no-cache";
                     return NotFound("Альбом не найден");
+                }
 
                 string ownerId = album.OwnerId;
                 string albumId = album.AlbumId;
 
-                const int count = 50; // Максимальное количество фотографий за один запрос (макс. 1000 для некоторых методов)
+                const int
+                    count = 50; // Максимальное количество фотографий за один запрос (макс. 1000 для некоторых методов)
                 int offset = 0;
                 var allPhotos = new List<VkPhotoItem>();
 
                 do
                 {
                     var apiUrl = $"https://api.vk.com/method/photos.get?owner_id={ownerId}" +
-                        $"&album_id={albumId}" +
-                        $"&access_token={_vkAccessToken}" +
-                        $"&count={count}" +
-                        $"&offset={offset}" +
-                        "&extended=1" +
-                        "&photo_sizes=1" +
-                        "&v=5.131";
+                                 $"&album_id={albumId}" +
+                                 $"&access_token={_vkAccessToken}" +
+                                 $"&count={count}" +
+                                 $"&offset={offset}" +
+                                 "&extended=1" +
+                                 "&photo_sizes=1" +
+                                 "&v=5.131";
 
                     var client = _httpClientFactory.CreateClient();
                     var response = await client.GetFromJsonAsync<VkApiResponse>(apiUrl);
@@ -198,11 +207,12 @@ namespace ProfessionalsWebApplication.Controllers
 
                     // Небольшая задержка, чтобы избежать лимитов VK API
                     await Task.Delay(500);
-
                 } while (true);
 
                 if (!allPhotos.Any())
                 {
+                    Response.Headers["Cache-Control"] = "no-store, no-cache";
+                    Response.Headers["Pragma"] = "no-cache";
                     return NotFound(new
                     {
                         Message = "No photos found in the album",
@@ -227,6 +237,8 @@ namespace ProfessionalsWebApplication.Controllers
             }
             catch (HttpRequestException ex)
             {
+                Response.Headers["Cache-Control"] = "no-store, no-cache";
+                Response.Headers["Pragma"] = "no-cache";
                 return StatusCode(502, new
                 {
                     Error = "VK API request failed",
@@ -235,6 +247,94 @@ namespace ProfessionalsWebApplication.Controllers
             }
             catch (Exception ex)
             {
+                Response.Headers["Cache-Control"] = "no-store, no-cache";
+                Response.Headers["Pragma"] = "no-cache";
+                return StatusCode(500, new
+                {
+                    Error = "Internal server error",
+                    Details = ex.Message,
+                    StackTrace = ex.StackTrace
+                });
+            }
+        }
+
+        [HttpGet("public/random")]
+        [ResponseCache(Duration = 3600, Location = ResponseCacheLocation.Any, NoStore = false)]
+        public async Task<ActionResult<IEnumerable<VkPhotoResponse>>> GetPublicAlbumPhotos()
+        {
+            try
+            {
+                var albums = _context.VKAlbums.ToList();
+                if (albums.Count == 0)
+                {
+                    Response.Headers["Cache-Control"] = "no-store, no-cache";
+                    Response.Headers["Pragma"] = "no-cache";
+                    return NotFound("No albums found");
+                }
+
+                Random rnd = new Random();
+                var album = albums[rnd.Next(0, albums.Count)];
+
+                string ownerId = album.OwnerId;
+                string albumId = album.AlbumId;
+
+                const int count = 100; // Запрашиваем сразу больше фотографий для выбора случайных
+                const int returnCount = 5; // Сколько фотографий вернуть в ответе
+
+                var apiUrl = $"https://api.vk.com/method/photos.get?owner_id={ownerId}" +
+                             $"&album_id={albumId}" +
+                             $"&access_token={_vkAccessToken}" +
+                             $"&count={count}" +
+                             "&extended=1" +
+                             "&photo_sizes=1" +
+                             "&v=5.131";
+
+                var client = _httpClientFactory.CreateClient();
+                var response = await client.GetFromJsonAsync<VkApiResponse>(apiUrl);
+
+                if (response?.Response?.Items == null || !response.Response.Items.Any())
+                {
+                    Response.Headers["Cache-Control"] = "no-store, no-cache";
+                    Response.Headers["Pragma"] = "no-cache";
+                    return NotFound(new
+                    {
+                        Message = "No photos found in the album",
+                        DebugInfo = new
+                        {
+                            OwnerId = ownerId,
+                            AlbumId = albumId
+                        }
+                    });
+                }
+
+                // Выбираем случайные фотографии из полученных
+                var randomPhotos = response.Response.Items
+                    .OrderBy(x => rnd.Next())
+                    .Take(returnCount)
+                    .SelectMany(photo => photo.Sizes
+                        .Where(size => size.Type == "z")
+                        .Select(size => new VkPhotoResponse
+                        {
+                            Url = size.Url,
+                        }))
+                    .ToList();
+
+                return Ok(randomPhotos);
+            }
+            catch (HttpRequestException ex)
+            {
+                Response.Headers["Cache-Control"] = "no-store, no-cache";
+                Response.Headers["Pragma"] = "no-cache";
+                return StatusCode(502, new
+                {
+                    Error = "VK API request failed",
+                    Details = ex.Message
+                });
+            }
+            catch (Exception ex)
+            {
+                Response.Headers["Cache-Control"] = "no-store, no-cache";
+                Response.Headers["Pragma"] = "no-cache";
                 return StatusCode(500, new
                 {
                     Error = "Internal server error",
