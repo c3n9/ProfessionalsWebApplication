@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProfessionalsWebApplication.Models;
 
@@ -10,9 +11,11 @@ using ProfessionalsWebApplication.Models;
 namespace ProfessionalsWebApplication.Migrations
 {
     [DbContext(typeof(ProfessionalsDbContext))]
-    partial class ProfessionalsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250521055524_VKAlbumModelNew3")]
+    partial class VKAlbumModelNew3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.14");

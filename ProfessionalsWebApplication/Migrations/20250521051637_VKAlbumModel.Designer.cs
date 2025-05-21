@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProfessionalsWebApplication.Models;
 
@@ -10,9 +11,11 @@ using ProfessionalsWebApplication.Models;
 namespace ProfessionalsWebApplication.Migrations
 {
     [DbContext(typeof(ProfessionalsDbContext))]
-    partial class ProfessionalsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250521051637_VKAlbumModel")]
+    partial class VKAlbumModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.14");
@@ -287,32 +290,6 @@ namespace ProfessionalsWebApplication.Migrations
                     b.HasIndex("FormModelId");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("ProfessionalsWebApplication.Models.VKAlbum", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("AlbumId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OwnerId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("VKAlbums");
                 });
 
             modelBuilder.Entity("ProfessionalsWebApplication.Models.Competitor", b =>
