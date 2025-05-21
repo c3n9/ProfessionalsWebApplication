@@ -163,7 +163,11 @@ namespace ProfessionalsWebApplication.Controllers
                 var album = _context.VKAlbums.FirstOrDefault(x => x.Id == vkAlbumId);
 
                 if (album == null)
+                {
+                    Response.Headers["Cache-Control"] = "no-store, no-cache";
+                    Response.Headers["Pragma"] = "no-cache";
                     return NotFound("Альбом не найден");
+                }
 
                 string ownerId = album.OwnerId;
                 string albumId = album.AlbumId;
@@ -261,60 +265,34 @@ namespace ProfessionalsWebApplication.Controllers
             try
             {
                 var albums = _context.VKAlbums.ToList();
-                Random rnd = new Random();
-                
-                var randomAlbumId = rnd.Next(0, albums.Count - 1);
-                
-                var album = albums.FirstOrDefault(x => x.Id == randomAlbumId);
-
-                if (album == null)
+                if (albums.Count == 0)
                 {
                     Response.Headers["Cache-Control"] = "no-store, no-cache";
                     Response.Headers["Pragma"] = "no-cache";
-                    return NotFound("Альбом не найден");
+                    return NotFound("No albums found");
                 }
+
+                Random rnd = new Random();
+                var album = albums[rnd.Next(0, albums.Count)];
 
                 string ownerId = album.OwnerId;
                 string albumId = album.AlbumId;
 
-                const int
-                    count = 50; // Максимальное количество фотографий за один запрос (макс. 1000 для некоторых методов)
-                int offset = 0;
-                var allPhotos = new List<VkPhotoItem>();
+                const int count = 100; // Запрашиваем сразу больше фотографий для выбора случайных
+                const int returnCount = 5; // Сколько фотографий вернуть в ответе
 
-                do
-                {
-                    var apiUrl = $"https://api.vk.com/method/photos.get?owner_id={ownerId}" +
-                                 $"&album_id={albumId}" +
-                                 $"&access_token={_vkAccessToken}" +
-                                 $"&count={count}" +
-                                 $"&offset={offset}" +
-                                 "&extended=1" +
-                                 "&photo_sizes=1" +
-                                 "&v=5.131";
+                var apiUrl = $"https://api.vk.com/method/photos.get?owner_id={ownerId}" +
+                             $"&album_id={albumId}" +
+                             $"&access_token={_vkAccessToken}" +
+                             $"&count={count}" +
+                             "&extended=1" +
+                             "&photo_sizes=1" +
+                             "&v=5.131";
 
-                    var client = _httpClientFactory.CreateClient();
-                    var response = await client.GetFromJsonAsync<VkApiResponse>(apiUrl);
+                var client = _httpClientFactory.CreateClient();
+                var response = await client.GetFromJsonAsync<VkApiResponse>(apiUrl);
 
-                    if (response?.Response?.Items == null || !response.Response.Items.Any())
-                    {
-                        break;
-                    }
-
-                    allPhotos.AddRange(response.Response.Items);
-                    offset += count;
-
-                    // Если получено меньше фотографий, чем запрошено, значит это последняя страница
-                    if (response.Response.Items.Count < count)
-                    {
-                        break;
-                    }
-
-                    // Небольшая задержка, чтобы избежать лимитов VK API
-                    await Task.Delay(500);
-                } while (true);
-
-                if (!allPhotos.Any())
+                if (response?.Response?.Items == null || !response.Response.Items.Any())
                 {
                     Response.Headers["Cache-Control"] = "no-store, no-cache";
                     Response.Headers["Pragma"] = "no-cache";
@@ -329,7 +307,10 @@ namespace ProfessionalsWebApplication.Controllers
                     });
                 }
 
-                var photos = allPhotos
+                // Выбираем случайные фотографии из полученных
+                var randomPhotos = response.Response.Items
+                    .OrderBy(x => rnd.Next())
+                    .Take(returnCount)
                     .SelectMany(photo => photo.Sizes
                         .Where(size => size.Type == "z")
                         .Select(size => new VkPhotoResponse
@@ -338,7 +319,7 @@ namespace ProfessionalsWebApplication.Controllers
                         }))
                     .ToList();
 
-                return Ok(photos);
+                return Ok(randomPhotos);
             }
             catch (HttpRequestException ex)
             {
