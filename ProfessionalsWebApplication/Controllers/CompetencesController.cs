@@ -58,7 +58,8 @@ namespace ProfessionalsWebApplication.Controllers
                 c.Category,
                 c.Soft,
                 c.Tasks,
-                ImageUrl = GetImageUrl(c.ImageUrl)
+                c.TypeId,
+                ImageUrl = GetImageUrl(c.ImageUrl),
             });
             return Ok(result);
         }
@@ -78,6 +79,7 @@ namespace ProfessionalsWebApplication.Controllers
                 competence.Category,
                 competence.Soft,
                 competence.Tasks,
+                competence.TypeId,
                 ImageUrl = GetImageUrl(competence.ImageUrl)
             };
     
@@ -106,6 +108,9 @@ namespace ProfessionalsWebApplication.Controllers
                 
                 imagePath = Path.Combine("uploads/competences", fileName); // Relative path
             }
+
+            if (competenceDto.TypeId == null)
+                competenceDto.TypeId = 1;
             
             var competence = new Competence
             {
@@ -115,7 +120,8 @@ namespace ProfessionalsWebApplication.Controllers
                 Category = competenceDto.Category,
                 Soft = competenceDto.Soft,
                 Tasks = competenceDto.Tasks,
-                ImageUrl = imagePath
+                ImageUrl = imagePath,
+                TypeId = competenceDto.TypeId,
             };
 
             _context.Competences.Add(competence);
@@ -130,6 +136,7 @@ namespace ProfessionalsWebApplication.Controllers
                 competence.Category,
                 competence.Soft,
                 competence.Tasks,
+                competence.TypeId,
                 ImageUrl = GetImageUrl(competence.ImageUrl)
             });
         }
@@ -170,13 +177,17 @@ namespace ProfessionalsWebApplication.Controllers
                 
                 existingCompetence.ImageUrl = Path.Combine("uploads/competences", fileName);
             }
-            
+
+            if (competenceDto.TypeId == null)
+                competenceDto.TypeId = 1;
+
             existingCompetence.Name = competenceDto.Name;
             existingCompetence.Description = competenceDto.Description;
             existingCompetence.Direction = competenceDto.Direction;
             existingCompetence.Category = competenceDto.Category;
             existingCompetence.Soft = competenceDto.Soft;
             existingCompetence.Tasks = competenceDto.Tasks;
+            existingCompetence.TypeId = competenceDto.TypeId;
 
             try
             {
@@ -190,6 +201,7 @@ namespace ProfessionalsWebApplication.Controllers
                     existingCompetence.Category,
                     existingCompetence.Soft,
                     existingCompetence.Tasks,
+                    existingCompetence.TypeId,
                     ImageUrl = GetImageUrl(existingCompetence.ImageUrl)
                 });
             }

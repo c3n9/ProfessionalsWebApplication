@@ -26,4 +26,6 @@ public class Competence
     
     [Required]
     public string ImageUrl { get; set; } 
+
+    public int? TypeId { get; set; }
 }
