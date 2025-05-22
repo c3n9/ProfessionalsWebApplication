@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProfessionalsWebApplication.Models;
@@ -31,6 +32,7 @@ public class ChampionshipsController : Controller
         return Ok(championship);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> CreateChampionship([FromForm] ChampionshipDto championshipDto)
     {
@@ -49,6 +51,7 @@ public class ChampionshipsController : Controller
         return CreatedAtAction(nameof(GetChampionship), new { id = championship.Id }, championship);
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateChampionship(int id, [FromForm] ChampionshipDto championshipDto)
     {
@@ -78,6 +81,7 @@ public class ChampionshipsController : Controller
         }
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteChampionship(int id)
     {

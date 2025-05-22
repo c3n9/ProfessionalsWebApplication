@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using ProfessionalsWebApplication.Models;
@@ -85,7 +86,8 @@ namespace ProfessionalsWebApplication.Controllers
     
             return Ok(result);
         }
-
+        
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateCompetence([FromForm] CompetenceDto competenceDto)
         {
@@ -141,6 +143,7 @@ namespace ProfessionalsWebApplication.Controllers
             });
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCompetence(int id, [FromForm] CompetenceDto competenceDto)
         {
@@ -215,7 +218,8 @@ namespace ProfessionalsWebApplication.Controllers
                     return Conflict("Конфликт версий. Данные были изменены другим пользователем.");
             }
         }
-
+        
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCompetence(int id)
         {

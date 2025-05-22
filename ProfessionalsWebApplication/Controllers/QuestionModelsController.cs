@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProfessionalsWebApplication.Models;
 using ProfessionalsWebApplication.Models.DTO;
@@ -39,6 +40,7 @@ namespace ProfessionalsWebApplication.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		public async Task<IActionResult> CreateQuestion([FromForm] QuestionModelDto questionDto)
 		{
 			if (!ModelState.IsValid)
@@ -65,6 +67,7 @@ namespace ProfessionalsWebApplication.Controllers
 			return Ok(questionModel); 
 		}
 
+		[Authorize]
 		[HttpPut("{id}")]
         public async Task<IActionResult> UpdateQuestion(int id, [FromForm] QuestionModelDto questionDto)
         {
@@ -111,6 +114,7 @@ namespace ProfessionalsWebApplication.Controllers
             }
         }
 
+		[Authorize]
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteQuestion(int id)
 		{

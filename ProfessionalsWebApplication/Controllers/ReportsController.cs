@@ -6,6 +6,7 @@ using NPOI.XSSF.UserModel;
 using ProfessionalsWebApplication.Enums;
 using ProfessionalsWebApplication.Models;
 using System.IO.Compression;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProfessionalsWebApplication.Controllers
 {
@@ -20,6 +21,7 @@ namespace ProfessionalsWebApplication.Controllers
         }
 
         [HttpGet("{formId}")]
+        [Authorize]
         public async Task<IActionResult> GetReportByForm(int formId)
         {
             var form = _context.Forms

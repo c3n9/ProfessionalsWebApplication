@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using ProfessionalsWebApplication.Models;
@@ -58,6 +59,7 @@ namespace ProfessionalsWebApplication.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateExpert([FromForm] ExpertDto expertDto)
         {
@@ -103,6 +105,7 @@ namespace ProfessionalsWebApplication.Controllers
             });
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateExpert(int id, [FromForm] ExpertDto expertDto)
         {
@@ -184,6 +187,7 @@ namespace ProfessionalsWebApplication.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExpert(int id)
         {
