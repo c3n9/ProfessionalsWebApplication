@@ -41,6 +41,7 @@ public class ChampionshipsController : Controller
         {
             Name = championshipDto.Name,
             Year = championshipDto.Year,
+            TypeId = championshipDto.TypeId,
         };
 
         _context.Championships.Add(championship);
@@ -61,6 +62,7 @@ public class ChampionshipsController : Controller
 
         existingChampionship.Name = championshipDto.Name;
         existingChampionship.Year = championshipDto.Year;
+        existingChampionship.TypeId = championshipDto.TypeId;
 
         try
         {
