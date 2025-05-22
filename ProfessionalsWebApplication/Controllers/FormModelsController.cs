@@ -25,6 +25,15 @@ namespace ProfessionalsWebApplication.Controllers
         public async Task<IActionResult> GetForms()
         {
             var forms = await _context.Forms.Include(f => f.Questions).ToListAsync();
+            
+            foreach (var form in forms)
+            {
+                if(form.IsVisible && (form.DateStart.Date > DateTime.Now.Date || form.DateEnd.Date < DateTime.Now.Date))
+                    form.IsVisible = false;
+            }
+            
+            await _context.SaveChangesAsync();
+
             return Ok(forms.Select(x => new
             {
                 x.Id,
@@ -42,6 +51,11 @@ namespace ProfessionalsWebApplication.Controllers
         {
             var form = await _context.Forms.FindAsync(id);
             if (form == null) return NotFound("Такая форма не найдена.");
+           
+            if(form.IsVisible && (form.DateStart.Date > DateTime.Now.Date || form.DateEnd.Date < DateTime.Now.Date))
+                form.IsVisible = false;
+            await _context.SaveChangesAsync();
+
             return Ok(new
             {
                 form.Id,
@@ -65,10 +79,14 @@ namespace ProfessionalsWebApplication.Controllers
             {
                 Name = formModelDto.Name,
                 Hash = string.Empty,
-                IsVisible = formModelDto.IsVisible,
+                IsVisible = true,
                 DateStart = formModelDto.DateStart,
                 DateEnd = formModelDto.DateEnd
             };
+            
+            
+            if(formModel.DateStart.Date > DateTime.Now.Date || formModel.DateEnd.Date < DateTime.Now.Date)
+                formModel.IsVisible = false;
 
             _context.Forms.Add(formModel);
             await _context.SaveChangesAsync();
@@ -103,9 +121,11 @@ namespace ProfessionalsWebApplication.Controllers
                 return NotFound("Форма не найдена.");
 
             existingForm.Name = formModelDto.Name;
-            existingForm.IsVisible = formModelDto.IsVisible;
             existingForm.DateStart = formModelDto.DateStart;
             existingForm.DateEnd = formModelDto.DateEnd;
+            
+            if(existingForm.IsVisible && (existingForm.DateStart.Date > DateTime.Now.Date || existingForm.DateEnd.Date < DateTime.Now.Date))
+                existingForm.IsVisible = false;
 
             try
             {

@@ -23,4 +23,7 @@ public class CompetenceDto
     public List<string> Tasks {get; set;} // Задачи
     
     public IFormFile? ImageFile { get; set; }
+
+    public int? TypeId { get; set; }
+
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProfessionalsWebApplication.Models;
 
@@ -10,9 +11,11 @@ using ProfessionalsWebApplication.Models;
 namespace ProfessionalsWebApplication.Migrations
 {
     [DbContext(typeof(ProfessionalsDbContext))]
-    partial class ProfessionalsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250521054851_VKAlbumModelNew2")]
+    partial class VKAlbumModelNew2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.14");
@@ -99,9 +102,6 @@ namespace ProfessionalsWebApplication.Migrations
                     b.Property<string>("Tasks")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<int?>("TypeId")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -309,9 +309,6 @@ namespace ProfessionalsWebApplication.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

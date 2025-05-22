@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProfessionalsWebApplication.Models;
 
@@ -10,9 +11,11 @@ using ProfessionalsWebApplication.Models;
 namespace ProfessionalsWebApplication.Migrations
 {
     [DbContext(typeof(ProfessionalsDbContext))]
-    partial class ProfessionalsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250522183802_AddCategoryIdToCompetence")]
+    partial class AddCategoryIdToCompetence
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.14");
@@ -76,6 +79,9 @@ namespace ProfessionalsWebApplication.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -99,9 +105,6 @@ namespace ProfessionalsWebApplication.Migrations
                     b.Property<string>("Tasks")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<int?>("TypeId")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

@@ -66,7 +66,7 @@ namespace ProfessionalsWebApplication.Controllers
 
                 // Заголовки
                 var headerRow = worksheet.CreateRow(0);
-                headerRow.CreateCell(0).SetCellValue("ID");
+                headerRow.CreateCell(0).SetCellValue("№");
                 headerRow.CreateCell(1).SetCellValue("Дата и время");
 
                 // Получаем все уникальные вопросы
@@ -96,20 +96,21 @@ namespace ProfessionalsWebApplication.Controllers
                     var user = form.Users[rowIdx];
                     var row = worksheet.CreateRow(rowIdx + 1);
 
-                    row.CreateCell(0).SetCellValue(user.Id);
+                    row.CreateCell(0).SetCellValue(rowIdx + 1);
                     row.CreateCell(1).SetCellValue(user.Timestamp.ToString("g"));
 
                     foreach (var answer in user.Answers)
                     {
                         var col = allQuestions.IndexOf(answer.Question) + 2;
+                        var cell = row.GetCell(col) ?? row.CreateCell(col); // Получаем существующую ячейку или создаем новую
 
                         if (answer.Type == AnswerType.Text)
                         {
-                            row.CreateCell(col).SetCellValue(answer.Value);
+                            cell.SetCellValue(answer.Value);
                         }
                         else if (answer.Type == AnswerType.File && answer.File != null && hasFileAnswers)
                         {
-                            var userFilesFolder = Path.Combine(filesRootFolder, $"Files_{user.Id}");
+                            var userFilesFolder = Path.Combine(filesRootFolder, $"Files_{rowIdx + 1}");
                             Directory.CreateDirectory(userFilesFolder);
 
                             var fileAnswer = answer.File;
@@ -117,19 +118,18 @@ namespace ProfessionalsWebApplication.Controllers
                             var filePath = Path.Combine(userFilesFolder, safeFileName);
                             await System.IO.File.WriteAllBytesAsync(filePath, Convert.FromBase64String(fileAnswer.FileContent));
 
-                            var relativePath = $"Files/Files_{user.Id}/{safeFileName}";
+                            var relativePath = $"Files/Files_{rowIdx + 1}/{safeFileName}";
 
-                            var linkCell = row.CreateCell(col);
-                            linkCell.SetCellValue($"📎 {safeFileName}");
+                            cell.SetCellValue($"📎 {safeFileName}");
 
                             var link = workbook.GetCreationHelper().CreateHyperlink(HyperlinkType.File);
                             link.Address = relativePath;
-                            linkCell.Hyperlink = link;
-                            linkCell.CellStyle = linkStyle;
+                            cell.Hyperlink = link;
+                            cell.CellStyle = linkStyle;
                         }
                         else if (answer.Type == AnswerType.File)
                         {
-                            row.CreateCell(col).SetCellValue("📎 (файл)");
+                            cell.SetCellValue("📎 (файл)");
                         }
                     }
                 }
