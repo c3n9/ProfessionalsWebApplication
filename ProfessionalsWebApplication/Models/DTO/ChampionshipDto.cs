@@ -8,4 +8,7 @@ public class ChampionshipDto
     public string Name { get; set; }
     [Required]
     public int Year { get; set; }
+    [Required]
+    public int? TypeId { get; set; }
+
 }
