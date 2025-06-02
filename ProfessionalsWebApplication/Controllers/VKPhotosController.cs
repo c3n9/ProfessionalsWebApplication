@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using ProfessionalsWebApplication.Models.DTO;
 using System.Text.RegularExpressions;
 using ProfessionalsWebApplication.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProfessionalsWebApplication.Controllers
 {
