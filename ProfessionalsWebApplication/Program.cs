@@ -42,11 +42,26 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ProfessionalsDbContext>(options =>
     options.UseSqlite(connectionString));
 
-builder.Services.AddCors(options =>{
-    options.AddPolicy("AllowFrontend", builder =>    {
-        builder.WithOrigins("http://localhost:5173")               .AllowAnyHeader()
-            .AllowAnyMethod();    });
+//builder.Services.AddCors(options =>{
+//    options.AddPolicy("AllowFrontend", builder =>    {
+//        builder.WithOrigins("http://localhost:5173")               
+//            .AllowAnyHeader()
+//            .AllowAnyMethod()   
+//			.AllowCredentials();
+//    });
+//});
+
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("AllowAll", builder =>
+	{
+		builder.AllowAnyOrigin()
+			   .AllowAnyMethod()
+			   .AllowAnyHeader();
+	});
 });
+
+
 
 
 builder.Services.AddControllersWithViews();
@@ -219,8 +234,10 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}"
 );
 
+app.UseCors("AllowAll");
 
-app.UseCors("AllowFrontend");
+
+//app.UseCors("AllowFrontend");
 
 
 app.Run();
