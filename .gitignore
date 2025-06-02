@@ -1,75 +1,104 @@
 ###################
-# compiled source #
+# ASP.NET Core / .NET
 ###################
-*.com
-*.class
+
+# Build outputs
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+artifacts/
+publish/
+
+# Visual Studio cache/options directory
+.vs/
+.vscode/
+
+# Compiled files
 *.dll
 *.exe
 *.pdb
 *.dll.config
 *.cache
 *.suo
-# Include dlls if they’re in the NuGet packages directory
-!/packages/*/lib/*.dll
-!/packages/*/lib/*/*.dll
-# Include dlls if they're in the CommonReferences directory
-!*CommonReferences/*.dll
-####################
-# VS Upgrade stuff #
-####################
-UpgradeLog.XML
-_UpgradeReport_Files/
-###############
-# Directories #
-###############
-bin/
-obj/
-TestResults/
-###################
-# Web publish log #
-###################
-*.Publish.xml
-#############
-# Resharper #
-#############
-/_ReSharper.*
-*.ReSharper.*
-############
-# Packages #
-############
-# it’s better to unpack these files and commit the raw source
-# git has its own built in compression methods
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
-######################
-# Logs and databases #
-######################
-*.log
-*.sqlite
-# OS generated files #
-######################
-.DS_Store?
-ehthumbs.db
-Icon?
-Thumbs.db
-[Bb]in
-[Oo]bj
-[Tt]est[Rr]esults
-*.suo
 *.user
-*.[Cc]ache
-*[Rr]esharper*
-packages
-NuGet.exe
-_[Ss]cripts
-*.exe
-*.dll
-*.nupkg
+*.ncrunchproject
 *.ncrunchsolution
-*.dot[Cc]over
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NuGet
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nupkg
+NuGet.exe
+.nuget/
+
+# DotCover
+*.dotCover
+
+# ReSharper
+_ReSharper.*
+*.ReSharper.*
+
+# Rider
+.idea/
+*.sln.iml
+
+# Azure Functions
+func/
+
+# Local development
+appsettings.Development.json
+appsettings.local.json
+
+###################
+# Web/Client-side #
+###################
+
+# Client-side build artifacts
+wwwroot/dist/
+wwwroot/css/*.min.css
+wwwroot/js/*.min.js
+wwwroot/lib/
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+###################
+# Misc
+###################
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# VS Code
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Visual Studio
+*.userprefs
+*.sln.docstates
+*.VC.db
+*.VC.VC.opendb
+
+# SQL Server
+*.mdf
+*.ldf
+
+# Backup files
+*.bak
+*.tmp
+*.temp
