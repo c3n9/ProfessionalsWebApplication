@@ -55,9 +55,9 @@ builder.Services.AddCors(options =>
 {
 	options.AddPolicy("AllowAll", builder =>
 	{
-		builder.AllowAnyOrigin()
-			   .AllowAnyMethod()
-			   .AllowAnyHeader();
+		builder.AllowAnyOrigin()    // Разрешает запросы с ЛЮБОГО домена
+			   .AllowAnyMethod()    // Разрешает все HTTP-методы (GET, POST, PUT и т.д.)
+			   .AllowAnyHeader();   // Разрешает все HTTP-заголовки
 	});
 });
 
