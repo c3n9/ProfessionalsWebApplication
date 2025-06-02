@@ -45,8 +45,9 @@ namespace ProfessionalsWebApplication.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPost]
-        public async Task<IActionResult> CreateAlbum([FromForm] VKAlbumDto vkAlbumDto)
+		public async Task<IActionResult> CreateAlbum([FromForm] VKAlbumDto vkAlbumDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -79,8 +80,9 @@ namespace ProfessionalsWebApplication.Controllers
             });
         }
 
+        [Authorize]
         [HttpPut("{albumId}")]
-        public async Task<IActionResult> UpdateVKAlbum(int albumId, [FromForm] VKAlbumDto vkAlbumDto)
+		public async Task<IActionResult> UpdateVKAlbum(int albumId, [FromForm] VKAlbumDto vkAlbumDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -140,8 +142,9 @@ namespace ProfessionalsWebApplication.Controllers
             return (true, -ownerId, albumId);
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVKAlbum(int id)
+		public async Task<IActionResult> DeleteVKAlbum(int id)
         {
             var vkAlbum = await _context.VKAlbums.FindAsync(id);
             if (vkAlbum == null)
