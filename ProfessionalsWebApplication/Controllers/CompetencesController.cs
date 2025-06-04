@@ -94,7 +94,7 @@ namespace ProfessionalsWebApplication.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if (_context.Competences.Any(x => x.Name == competenceDto.Name))
+            if (_context.Competences.Any(x => x.Name == competenceDto.Name && x.TypeId == competenceDto.TypeId))
                 return BadRequest("С таким названием компетенция уже существует.");
             
             string imagePath = null;
@@ -154,7 +154,7 @@ namespace ProfessionalsWebApplication.Controllers
             if (existingCompetence == null)
                 return NotFound("Компетенция не найдена.");
             
-            if (_context.Banners.Any(x => x.Title == competenceDto.Name && x.Id != id))
+            if (_context.Competences.Any(x => x.Name == competenceDto.Name && x.Id != id && x.TypeId == competenceDto.TypeId))
                 return BadRequest("С таким названием компетенция уже существует.");
 
             if (competenceDto.ImageFile != null && competenceDto.ImageFile.Length > 0)
