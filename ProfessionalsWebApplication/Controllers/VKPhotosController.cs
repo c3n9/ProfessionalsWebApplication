@@ -274,7 +274,11 @@ namespace ProfessionalsWebApplication.Controllers
                     return NotFound("Не найдено ни одного альбома");
                 }
                 Random rnd = new Random();
-                var album = albums[rnd.Next(1, albums.Count)];
+                var album = new VKAlbum();
+                if(albums.Count == 1)
+                    album = albums[0];
+                else
+                    album = albums[rnd.Next(1, albums.Count)];
                 if (album == null)
                 {
                     return NotFound("Не найдено ни одного альбома");
