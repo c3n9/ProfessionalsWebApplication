@@ -136,8 +136,9 @@ namespace ProfessionalsWebApplication.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Place")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Place")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

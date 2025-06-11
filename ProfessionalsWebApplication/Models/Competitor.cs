@@ -13,6 +13,6 @@ public class Competitor
     [JsonIgnore] public Championship Championship { get; set; }
     [ForeignKey(nameof(Competence))] public int CompetenceId { get; set; }
     [JsonIgnore] public Competence Competence { get; set; }
-    public int Place { get; set; }
+    public string Place { get; set; }
     public string ImageUrl { get; set; }
 }
