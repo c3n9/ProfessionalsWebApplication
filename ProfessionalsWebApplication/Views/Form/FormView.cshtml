@@ -72,7 +72,7 @@
 				</label>
 
 				<div class="uploaded-files">
-					<div class="uploaded-files-title">Загруженные файлы</div>
+					<div class="uploaded-files-title" id="fileTitle">Загруженные файлы</div>
 					<div class="file-list" id="file-list-@question.Id">
 						<!-- Файлы будут добавляться здесь -->
 					</div>
@@ -123,6 +123,10 @@
 			// Инициализация при наличии файлов (если нужно сохранять при перезагрузке)
 			if (fileInput.files.length > 0) {
 				updateFileList(fileInput, fileList);
+				fileTitle.style.display = 'inline'
+			}
+			else{
+				fileTitle.style.display = 'none'
 			}
 		});
 
@@ -132,6 +136,8 @@
 			fileListContainer.innerHTML = '';
 
 			// Добавляем каждый файл
+			fileTitle.style.display = 'inline'
+			
 			Array.from(input.files).forEach((file, index) => {
 				const fileItem = document.createElement('div');
 				fileItem.className = 'file-item';
@@ -173,6 +179,7 @@
 			// Если файлов не осталось, сбрасываем required (если нужно)
 			if (newFiles.length === 0 && input.hasAttribute('required')) {
 				input.setCustomValidity('Пожалуйста, выберите файл');
+				fileTitle.style.display = 'none'
 			} else {
 				input.setCustomValidity('');
 			}

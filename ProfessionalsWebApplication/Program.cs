@@ -111,6 +111,13 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/styles"
 });
 
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Fonts")),
+    RequestPath = "/fonts"
+});
+
 // Для загрузки баннеров
 // В Program.cs
 

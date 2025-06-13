@@ -1,10 +1,19 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/Unbounded-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900; /* Указываем диапазон весов для variable font */
+    font-style: normal;
+}
+
 * {
     font-family: 'Montserrat';
     box-sizing: border-box;
 }
 h2{
+    font-size: 2em;
     color: #1C5493;
     text-align: center;
+    padding-bottom: 1em;
 }
 h1{
     font-size: 100px;
@@ -18,17 +27,21 @@ h1{
     justify-content: center;
     flex-direction: column;
 }
-.w{
-    width: 1015px;
-    margin: 0 auto;
+.w {
+    width: 75em;
     background-color: white;
     padding: 80px;
     border-radius: 30px;
     padding-top: 30px;
-
 }
-body{
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* гарантирует высоту на весь экран */
     background-color: #F6F6F6;
+    margin: 0;
 }
 
 .input-container {
@@ -50,19 +63,26 @@ body{
     border: 1px solid #bebebe;
     border-radius: 15px;
     padding: 17px 12px;
-    
+
     width: 100%;
-    
+
+}
+.toggle-full{
+    padding-bottom: 1em;
+}
+.toggle-full .question, .file-upload .question {
+    font-size: 1.2em;
+    color: #1A4A8A;
+    padding-top: 1em;
+    font-weight: 500;
 }
 
-/* Активное состояние (фокус или ввод текста) */
 .form-control:focus,
 .form-control:not(:placeholder-shown) {
     border-color: #1C5493;
     color: #1C5493;
 }
 
-/* Плавающий лейбл */
 .floating-label {
     position: absolute;
     top: 17px;
@@ -83,7 +103,6 @@ body{
     color: #1C5493;
 }
 
-/* Ошибка валидации */
 .form-control:invalid {
     border-color: #BD3838;
     color: #BD3838;
@@ -104,19 +123,6 @@ body{
     display: block;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 .custom-select-container {
     position: relative;
     margin: 24px 0;
@@ -135,7 +141,7 @@ body{
     outline: none;
     cursor: pointer;
     transition: all 0.3s;
-    
+
 }
 
 .select-placeholder {
@@ -178,10 +184,8 @@ body{
     color: #1C5493;
 }
 
-/* Стилизация выпадающего списка */
 .custom-select option {
     padding: 20px !important;
-    /* Большие отступы */
     font-size: 16px;
     transition: all 0.2s;
 }
@@ -196,7 +200,6 @@ body{
     color: #1C5493;
 }
 
-/* Для Firefox */
 @-moz-document url-prefix() {
     .custom-select {
         padding-right: 30px;
@@ -238,7 +241,6 @@ body{
     opacity: 0;
 }
 
-/* Стиль для кружка */
 .toggle-button::before {
     content: "";
     position: absolute;
@@ -254,12 +256,10 @@ body{
     box-sizing: border-box;
 }
 
-/* Обводка кружка при наведении */
 .toggle-buttons input[type="radio"]:hover+.toggle-button::before {
     border: 1px solid #1C5493;
 }
 
-/* Стиль при выборе - синий кружок с обводкой */
 .toggle-buttons input[type="radio"]:checked+.toggle-button::before {
     border: 5px solid #1C5493;
     background-color: white;
@@ -267,43 +267,24 @@ body{
     height: 16px;
 }
 
-/* Стиль при наведении на кнопку */
 .toggle-buttons input[type="radio"]:hover+.toggle-button {
     border-color: #1C5493;
     color: #1C5493;
 }
 
-/* Стиль при фокусе */
 .toggle-buttons input[type="radio"]:focus+.toggle-button {
     box-shadow: 0 0 0 2px rgba(28, 84, 147, 0.3);
 }
 
-/* Анимация при выборе */
 @keyframes pulse {
-    0% {
-        transform: translateY(-50%) scale(1);
-    }
-
-    50% {
-        transform: translateY(-50%) scale(1.1);
-    }
-
-    100% {
-        transform: translateY(-50%) scale(1);
-    }
+    0% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-50%) scale(1.1); }
+    100% { transform: translateY(-50%) scale(1); }
 }
 
 .toggle-buttons input[type="radio"]:checked+.toggle-button::before {
     animation: pulse 0.3s ease;
 }
-
-
-
-
-
-
-
-
 
 .file-upload {
     font-family: Arial, sans-serif;
@@ -394,6 +375,11 @@ body{
 .remove-file {
     border: none;
     cursor: pointer;
+    color: #BD3838;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    font-size: 1.5em;
 }
 
 .ripple-button {
@@ -402,7 +388,7 @@ body{
     background-color: #1C5493;
     color: white;
     border: none;
-    padding: 12px 24px;
+    padding: 18px;
     border-radius: 15px;
     font-size: 16px;
     cursor: pointer;
@@ -410,13 +396,13 @@ body{
     width: 100%;
 }
 
-    .ripple-button:hover {
-        background-color: #1A4A8A;
-    }
+.ripple-button:hover {
+    background-color: #1A4A8A;
+}
 
-    .ripple-button:active {
-        background-color: #2773C8;
-    }
+.ripple-button:active {
+    background-color: #2773C8;
+}
 
 .ripple-effect {
     position: absolute;
@@ -434,3 +420,79 @@ body{
     }
 }
 
+@media (max-width: 1024px) {
+    .w {
+        width: 90%;
+        padding: 40px 30px;
+    }
+    .form-control,
+    .custom-select {
+        font-size: 15px;
+        padding: 14px 10px;
+    }
+    .floating-label,
+    .select-placeholder {
+        font-size: 15px;
+    }
+    .upload-text,
+    .format-hint {
+        font-size: 14px;
+    }
+    .ripple-button {
+        font-size: 15px;
+        padding: 10px 20px;
+    }
+    h2 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .w {
+        width: 95%;
+        padding: 30px 20px;
+    }
+    .toggle-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .toggle-button {
+        width: 100%;
+        text-align: left;
+        padding: 10px 14px 10px 36px;
+    }
+    .upload-area {
+        padding: 20px;
+    }
+    h2 {
+        font-size: 20px;
+    }
+    h1 {
+        font-size: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .w {
+        padding: 20px 15px;
+    }
+    .form-control,
+    .custom-select {
+        font-size: 14px;
+        padding: 12px 8px;
+    }
+    .floating-label,
+    .select-placeholder {
+        font-size: 14px;
+    }
+    .ripple-button {
+        font-size: 14px;
+        padding: 10px 16px;
+    }
+    .note {
+        font-size: 13px;
+    }
+    .success {
+        font-size: 36px;
+    }
+}
