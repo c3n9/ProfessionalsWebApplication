@@ -35,10 +35,27 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\Unbounded-VariableFont_wght.ttf" />
     <None Remove="Key\privateKey.xml" />
     <EmbeddedResource Include="Key\privateKey.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Fonts\**" CopyToPublishDirectory="PreserveNewest" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="Fonts\Unbounded-VariableFont_wght.ttf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+  <ItemGroup>
+    <None Update="Styles\style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
