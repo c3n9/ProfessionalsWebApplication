@@ -20,7 +20,7 @@ public class AuthorizationController : ControllerBase
     [HttpPost("login")]
     public IActionResult Login([FromBody] AdminDto admin)
     {
-        if (admin.UserName == "admin" && admin.Password == "1234")
+        if (admin.UserName == "admin" && admin.Password == "1Ltk-Lzrar")
         {
             var token = _jwtService.GenerateToken(admin.UserName);
             return Ok(new { token });
